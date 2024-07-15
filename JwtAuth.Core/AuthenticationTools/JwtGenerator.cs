@@ -3,7 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace JwtAuth.Core.Authentication;
+namespace JwtAuth.Core.AuthenticationTools;
 
 /// <summary>
 /// The jwt generator provides functionality to create an authentication

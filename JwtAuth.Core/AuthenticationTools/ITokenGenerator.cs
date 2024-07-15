@@ -1,4 +1,4 @@
-﻿namespace JwtAuth.Core.Authentication;
+﻿namespace JwtAuth.Core.AuthenticationTools;
 
 public interface ITokenGenerator
 {

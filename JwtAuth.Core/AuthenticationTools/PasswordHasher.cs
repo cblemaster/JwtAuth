@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace JwtAuth.Core.Authentication;
+namespace JwtAuth.Core.AuthenticationTools;
 
 /// <summary>
 /// The password hasher provides functionality to hash a plain text password and validate

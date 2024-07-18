@@ -12,10 +12,10 @@
 ## Features
  - Register as a new user
  - Login as an existing user
- - Create roles
- - Update user password
- - Update user roles
- - Update profile
+ - Add roles
+ - Change a user's password
+ - Change a user's role(s)
+ - Update a profile
 
 ## My objectives
  - The solution will be a reusable template for my apps that need user identity management
@@ -26,10 +26,11 @@
 
 ## Database overview
  - There is a script to create the SQL server database (location TBD)
+ - This script also inserts some sample roles into the database
  - There are three (3) database tables
 	- User: username and encrypted password
 	- Profile: one-to-one association with User; name and other info not related to authentication (I think from a security perspective it makes sense to keep User and Profile data separate)
-	- Role: many-to-many association with User
+	- Role: many-to-many association with User; roles that can be used in authroization schemes
 
 ## Database rules
  - Values for these fields are required and have a maximum length:
@@ -44,11 +45,11 @@
 	- Profile.Email
 	- Profile.Phone
 	- Role.Rolename
- - Create date is meant to be set when a record is inserted, then never changed (TBD - how to enforce this in the db and/or app?)
- - Update date is meant to be set every time a record is updated  (TBD - how to enforce this in the db and/or app?)
 
 ## Business rules
  - A User must have at least one (1) Role
+ - Create date is meant to be set when a record is inserted, then never changed (TBD - how to enforce this in the db and/or app?)
+ - Update date is meant to be set every time a record is updated  (TBD - how to enforce this in the db and/or app?)
 
 ## UI conventions
  - TBD

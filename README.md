@@ -47,6 +47,7 @@
 	- Role.Rolename
 
 ## Business rules
+ - Plain text passwords are not persisted to the database, but plain text passwords entered by a user have a maximum length of 50 characters
  - A User must have at least one (1) Role
  - Create date is meant to be set when a record is inserted, then never changed (TBD - how to enforce this in the db and/or app?)
  - Update date is meant to be set every time a record is updated  (TBD - how to enforce this in the db and/or app?)

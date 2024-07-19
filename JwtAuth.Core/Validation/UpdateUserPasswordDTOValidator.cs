@@ -8,6 +8,6 @@ public class UpdateUserPasswordDTOValidator : AbstractValidator<UpdateUserPasswo
     public UpdateUserPasswordDTOValidator()
     {
         RuleFor(u => u.UserId).GreaterThan(0).WithMessage("Invalid {PropertyName}.");
-        RuleFor(u => u.Password).StringNotEmpty().StringLengthDoesNotExceedMax(50);
+        RuleFor(u => u.Password).StringNotEmpty().StringLengthDoesNotExceedMax(ValidationConstants.USER_PASSWORD_MAX_LENGTH);
     }
 }

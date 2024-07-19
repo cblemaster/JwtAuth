@@ -7,7 +7,7 @@ public class CreateRoleDTOValidator : AbstractValidator<CreateRoleDTO>
 {
     public CreateRoleDTOValidator()
     {
-        RuleFor(r => r.Rolename).StringNotEmpty().StringLengthDoesNotExceedMax(50);
+        RuleFor(r => r.Rolename).StringNotEmpty().StringLengthDoesNotExceedMax(ValidationConstants.ROLE_ROLENAME_MAX_LENGTH);
         // TODO: Rule for unique role name
     }
 }

@@ -7,9 +7,8 @@ public class LoginUserDTOValidator : AbstractValidator<LoginUserDTO>
 {
     public LoginUserDTOValidator()
     {
-        RuleFor(u => u.Username).NotEmpty().WithMessage("Username is required.")
-            .MaximumLength(50).WithMessage("Username must be 50 characters or fewer.");
-        RuleFor(u => u.Password).NotEmpty().WithMessage("Password is required.")
-            .MaximumLength(50).WithMessage("Password must be 50 characters or fewer.");
+        RuleFor(u => u.Username).StringNotEmpty().StringLengthDoesNotExceedMax(50);
+        // TODO: Rule for unique username
+        RuleFor(u => u.Password).StringNotEmpty().StringLengthDoesNotExceedMax(50);
     }
 }

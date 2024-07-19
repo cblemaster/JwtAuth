@@ -7,8 +7,7 @@ public class CreateRoleDTOValidator : AbstractValidator<CreateRoleDTO>
 {
     public CreateRoleDTOValidator()
     {
-        RuleFor(r => r.Rolename).NotEmpty().WithMessage("Role name is required.")
-            .MaximumLength(50).WithMessage("Role name must be 50 characters or fewer.");
+        RuleFor(r => r.Rolename).StringNotEmpty().StringLengthDoesNotExceedMax(50);
         // TODO: Rule for unique role name
     }
 }

@@ -1,4 +1,4 @@
-﻿using JwtAuth.API.Entities;
+﻿using JwtAuth.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace JwtAuth.API.DataContext;

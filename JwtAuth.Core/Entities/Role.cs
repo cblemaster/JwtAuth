@@ -1,4 +1,4 @@
-﻿namespace JwtAuth.API.Entities;
+﻿namespace JwtAuth.Core.Entities;
 
 public partial class Role
 {

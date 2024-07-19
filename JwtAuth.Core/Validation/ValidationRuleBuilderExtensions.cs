@@ -2,14 +2,14 @@
 
 namespace JwtAuth.Core.Validation;
 
-public static class ValidationRuleExtensions
+internal static class ValidationRuleBuilderExtensions
 {
-    public static IRuleBuilderOptions<T, string> StringNotEmpty
+    internal static IRuleBuilderOptions<T, string> StringNotEmpty
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder.Must(s => !string.IsNullOrWhiteSpace(s))
             .WithMessage("{PropertyName} is required.");
 
-    public static IRuleBuilderOptions<T, string> StringLengthDoesNotExceedMax
+    internal static IRuleBuilderOptions<T, string> StringLengthDoesNotExceedMax
         <T>(this IRuleBuilder<T, string> ruleBuilder, int max) =>
             ruleBuilder.Must((rootObject, s, context) =>
             {

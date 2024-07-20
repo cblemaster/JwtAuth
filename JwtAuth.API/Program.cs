@@ -1,6 +1,5 @@
-using JwtAuth.API;
+using JwtAuth.API.Extensions;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.Win32;
 
 WebApplicationBuilder webAppBuilder = WebApplication.CreateBuilder(args);
 IConfigurationRoot configRoot = webAppBuilder.CreateAndBuildConfigurationRoot();

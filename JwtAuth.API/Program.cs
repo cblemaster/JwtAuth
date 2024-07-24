@@ -26,35 +26,14 @@ app.MapPost("/register", async Task<Results<BadRequest<string>,
     {
         return TypedResults.BadRequest(validationResult.ToString());
     }
-    PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
     DateTime createDate = DateTime.Now;
-    User entity = new()
-    {
-        Username = dto.Username,
-        PasswordHash = hash.Password,
-        Salt = hash.Salt,
-        CreateDate = createDate,
-        Profile = new()
-        {
-            FirstName = dto.Profile.FirstName,
-            LastName = dto.Profile.LastName,
-            Email = dto.Profile.Email,
-            Phone = dto.Profile.Phone,
-            CreateDate = createDate,
-        }
-    };
+    PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
+    User entity = dto.MapCreateUserDTOToEntity(createDate, hash);
     IEnumerable<Role> roles = context.Roles.Where(r => dto.Roles.Select(s => s.RoleId).Contains(r.RoleId));
     entity.Roles = roles.ToList();
     context.Users.Add(entity);
     await context.SaveChangesAsync();
-    return TypedResults.Created("/login", 
-        new GetUserDTO(entity.UserId, entity.ProfileId, entity.Username,
-        entity.CreateDate, entity.UpdateDate,
-            new GetProfileDTO(entity.Profile.ProfileId,
-                entity.Profile.FirstName, entity.Profile.LastName,
-                entity.Profile.Email, entity.Profile.Phone, entity.Profile.CreateDate,
-                entity.Profile.UpdateDate),
-                roles.Select(r => new GetRoleDTO(r.RoleId, r.Rolename, r.CreateDate, r.UpdateDate))));
+    return TypedResults.Created("/login", entity.MapUserEntityToDTO());
 });
 
 // login

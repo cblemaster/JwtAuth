@@ -1,5 +1,12 @@
+using FluentValidation;
+using FluentValidation.Results;
+using JwtAuth.API.DataContext;
 using JwtAuth.API.Extensions;
+using JwtAuth.Core.AuthenticationTools;
+using JwtAuth.Core.DataTransferObjects;
+using JwtAuth.Core.Entities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 WebApplicationBuilder webAppBuilder = WebApplication.CreateBuilder(args);
 IConfigurationRoot configRoot = webAppBuilder.CreateAndBuildConfigurationRoot();
@@ -10,20 +17,45 @@ webAppBuilder.RegisterAuthorization();
 webAppBuilder.RegisterDependencies(configRoot);
 WebApplication app = webAppBuilder.Build();
 app.MapGet("/", () => "Welcome to JwtAuth!");
-
-// register
-// /register
-// takes in: db context, password hasher, validation for (both) dtos, create user dto (which includes create profile dto)
-// validate both dtos
-// if not valid, return bad request with the validation errors
-// get password hash and salt
-// create new user entity
-// set entity props from dto
-// set password hash, salt on entity
-// get and set roles on the entity
-// set the profile on the entity
-// add the entity to the db, save changes
-// return the entity
+app.MapPost("/register", async Task<Results<BadRequest<string>,
+    Created<GetUserDTO>>> (JwtAuthContext context, IPasswordHasher passwordHasher,
+        IValidator<CreateUserDTO> validator, CreateUserDTO dto) =>
+{
+    ValidationResult validationResult = validator.Validate(dto);
+    if (!validationResult.IsValid)
+    {
+        return TypedResults.BadRequest(validationResult.ToString());
+    }
+    PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
+    DateTime createDate = DateTime.Now;
+    User entity = new()
+    {
+        Username = dto.Username,
+        PasswordHash = hash.Password,
+        Salt = hash.Salt,
+        CreateDate = createDate,
+        Profile = new()
+        {
+            FirstName = dto.Profile.FirstName,
+            LastName = dto.Profile.LastName,
+            Email = dto.Profile.Email,
+            Phone = dto.Profile.Phone,
+            CreateDate = createDate,
+        }
+    };
+    IEnumerable<Role> roles = context.Roles.Where(r => dto.Roles.Select(s => s.RoleId).Contains(r.RoleId));
+    entity.Roles = roles.ToList();
+    context.Users.Add(entity);
+    await context.SaveChangesAsync();
+    return TypedResults.Created("/login", 
+        new GetUserDTO(entity.UserId, entity.ProfileId, entity.Username,
+        entity.CreateDate, entity.UpdateDate,
+            new GetProfileDTO(entity.Profile.ProfileId,
+                entity.Profile.FirstName, entity.Profile.LastName,
+                entity.Profile.Email, entity.Profile.Phone, entity.Profile.CreateDate,
+                entity.Profile.UpdateDate),
+                roles.Select(r => new GetRoleDTO(r.RoleId, r.Rolename, r.CreateDate, r.UpdateDate))));
+});
 
 // login
 // /login

@@ -17,6 +17,7 @@ authBuilder.RegisterJwtBearer(configRoot);
 webAppBuilder.RegisterAuthorization();
 webAppBuilder.RegisterDependencies(configRoot);
 WebApplication app = webAppBuilder.Build();
+
 app.MapGet("/", () => "Welcome to JwtAuth!");
 app.MapPost("/register", async Task<Results<BadRequest<string>,
     Created<GetUserDTO>>> (JwtAuthContext context, IPasswordHasher passwordHasher,
@@ -92,31 +93,56 @@ app.MapPut("/user/{id:int}/password", async Task<Results<BadRequest<string>,
     PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
     entity.PasswordHash = hash.Password;
     entity.Salt = hash.Salt;
+    entity.UpdateDate = DateTime.Now;
     await context.SaveChangesAsync();
     return TypedResults.NoContent();
 });
+app.MapPut("/user/{id:int}/roles", async Task<Results<BadRequest<string>,
+    NotFound, NoContent>> (JwtAuthContext context, IValidator<UpdateUserRolesDTO> validator,
+    UpdateUserRolesDTO dto, int id) =>
+{
+    ValidationResult validationResult = validator.Validate(dto);
+    if (!validationResult.IsValid)
+    {
+        return TypedResults.BadRequest(validationResult.ToString());
+    }
+    User entity = await context.Users.SingleAsync(u => u.UserId == id);
+    if (entity == null)
+    {
+        return TypedResults.NotFound();
+    }
+    entity.Roles = context.Roles
+        .Where(r => dto.Roles
+        .Select(r => r.RoleId)
+        .Contains(r.RoleId))
+        .ToList();
+    entity.UpdateDate = DateTime.Now;
 
+    await context.SaveChangesAsync();
+    return TypedResults.NoContent();
+});
+app.MapPut("/profile/{id:int}", async Task<Results<BadRequest<string>, NotFound,
+    NoContent>> (JwtAuthContext context, IValidator<UpdateProfileDTO> validator,
+    UpdateProfileDTO dto, int id) =>
+{
+    ValidationResult validationResult = validator.Validate(dto);
+    if (!validationResult.IsValid)
+    {
+        return TypedResults.BadRequest(validationResult.ToString());
+    }
+    Profile entity = await context.Profiles.SingleAsync(p => p.ProfileId == id);
+    if (entity == null)
+    {
+        return TypedResults.NotFound();
+    }
+    entity.FirstName = dto.FirstName;
+    entity.LastName = dto.LastName;
+    entity.Email = dto.Email;
+    entity.Phone = dto.Phone;
+    entity.UpdateDate = DateTime.Now;
 
-// change roles
-// /user/{id}/roles
-// takes in: db context, validation, update user roles dto
-// validate dto
-// if not valid, return bad request with the validation errors
-// get the user entity from db
-// if not found return not found
-// set roles on entity
-// save changes
-// return no content
-
-// update profile
-// /profile/{id}
-// takes in: db context, validation, update profile dto
-// validate dto
-// if not valid, return bad request with the validation errors
-// get the profile entity from db
-// if not found return not found
-// set entity props from dto
-// save changes
-// return no content
+    await context.SaveChangesAsync();
+    return TypedResults.NoContent();
+});
 
 app.Run();

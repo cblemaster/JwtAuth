@@ -62,17 +62,19 @@ app.MapPost("/login", async Task<Results<BadRequest<string>, UnauthorizedHttpRes
     returnDto.Token = token;
     return TypedResults.Ok(returnDto);
 });
-
-
-// add role
-// /role
-// takes in: db context, validation, create role dto
-// validate dto
-// if not valid, return bad request with the validation errors
-// create role entity and set props from dto
-// add entity to db
-// add the entity to the db, save changes
-// return the entity
+app.MapPost("/role", async Task<Results<BadRequest<string>, Created<GetRoleDTO>>>
+    (JwtAuthContext context, IValidator<CreateRoleDTO> validator, CreateRoleDTO dto) =>
+{
+    ValidationResult validationResult = validator.Validate(dto);
+    if (!validationResult.IsValid)
+    {
+        return TypedResults.BadRequest(validationResult.ToString());
+    }
+    Role entity = new() { Rolename = dto.Rolename, CreateDate = DateTime.Now };
+    context.Roles.Add(entity);
+    await context.SaveChangesAsync();
+    return TypedResults.Created("/", entity.MapRoleEntityToDTO());
+});
 
 // change password
 // /user/{id}/password

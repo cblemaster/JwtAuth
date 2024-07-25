@@ -6,7 +6,7 @@
  - (Almost) entirely public by design; the Core project is intended to be used by other projects
  - The Core project has no dependencies on other projects
  - Authentication tools: password hashing and token generation
- - Entities (not yet complete) and dtos
+ - Entities and dtos
  - Validation for create and update dtos
  - Data service that calls api endpoints (not yet complete)
  - Static class representing the logged in user - TBD

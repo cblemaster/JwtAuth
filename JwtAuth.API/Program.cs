@@ -7,6 +7,7 @@ using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.Core.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder webAppBuilder = WebApplication.CreateBuilder(args);
 IConfigurationRoot configRoot = webAppBuilder.CreateAndBuildConfigurationRoot();
@@ -35,17 +36,33 @@ app.MapPost("/register", async Task<Results<BadRequest<string>,
     await context.SaveChangesAsync();
     return TypedResults.Created("/login", entity.MapUserEntityToDTO());
 });
+app.MapPost("/login", async Task<Results<BadRequest<string>, UnauthorizedHttpResult,
+    Ok<GetUserDTO>>> (JwtAuthContext context, IPasswordHasher passwordHasher,
+    ITokenGenerator tokenGenerator, IValidator<LoginUserDTO> validator,
+    LoginUserDTO dto) =>
+{
+    ValidationResult validationResult = validator.Validate(dto);
+    if (!validationResult.IsValid)
+    {
+        return TypedResults.BadRequest(validationResult.ToString());
+    }
+    User entity = await context.Users.Include(u => u.Profile).Include(u => u.Roles)
+        .SingleAsync(u => u.Username == dto.Username );
+    if (entity is null)
+    {
+        return TypedResults.Unauthorized();
+    }
+    if (!passwordHasher.VerifyHashMatch(entity.PasswordHash, dto.Password, entity.Salt))
+    {
+        return TypedResults.Unauthorized();
+    }
+    GetUserDTO returnDto = entity.MapUserEntityToDTO();
+    string token = tokenGenerator.GenerateToken(entity.UserId, entity.Username,
+        entity.Roles.Select(r => r.Rolename));
+    returnDto.Token = token;
+    return TypedResults.Ok(returnDto);
+});
 
-// login
-// /login
-// takes in: db context, password hasher, token generator, dto validation, login user dto
-// validate dto
-// if not valid, return bad request with the validation errors
-// find user entity by username
-// if null return unauthorized
-// verify hash match between entity hash and hashed dto password
-// if not match return unauthorized
-// return get user dto with token
 
 // add role
 // /role

@@ -48,7 +48,7 @@ app.MapPost("/login", async Task<Results<BadRequest<string>, UnauthorizedHttpRes
         return TypedResults.BadRequest(validationResult.ToString());
     }
     User entity = await context.Users.Include(u => u.Profile).Include(u => u.Roles)
-        .SingleAsync(u => u.Username == dto.Username );
+        .SingleAsync(u => u.Username == dto.Username);
     if (entity is null)
     {
         return TypedResults.Unauthorized();
@@ -106,16 +106,15 @@ app.MapPut("/user/{id:int}/roles", async Task<Results<BadRequest<string>,
     {
         return TypedResults.BadRequest(validationResult.ToString());
     }
-    User entity = await context.Users.SingleAsync(u => u.UserId == id);
+    User entity = await context.Users.Include(u => u.Roles).SingleAsync(u => u.UserId == id);
     if (entity == null)
     {
         return TypedResults.NotFound();
     }
-    entity.Roles = context.Roles
+    entity.Roles = [.. context.Roles
         .Where(r => dto.Roles
         .Select(r => r.RoleId)
-        .Contains(r.RoleId))
-        .ToList();
+        .Contains(r.RoleId))];
     entity.UpdateDate = DateTime.Now;
 
     await context.SaveChangesAsync();

@@ -75,18 +75,27 @@ app.MapPost("/role", async Task<Results<BadRequest<string>, Created<GetRoleDTO>>
     await context.SaveChangesAsync();
     return TypedResults.Created("/", entity.MapRoleEntityToDTO());
 });
+app.MapPut("/user/{id:int}/password", async Task<Results<BadRequest<string>,
+    NotFound, NoContent>> (JwtAuthContext context, IPasswordHasher passwordHasher,
+    IValidator<UpdateUserPasswordDTO> validator, UpdateUserPasswordDTO dto, int id) =>
+{
+    ValidationResult validationResult = validator.Validate(dto);
+    if (!validationResult.IsValid)
+    {
+        return TypedResults.BadRequest(validationResult.ToString());
+    }
+    User entity = await context.Users.SingleAsync(u => u.UserId == id);
+    if (entity == null)
+    {
+        return TypedResults.NotFound();
+    }
+    PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
+    entity.PasswordHash = hash.Password;
+    entity.Salt = hash.Salt;
+    await context.SaveChangesAsync();
+    return TypedResults.NoContent();
+});
 
-// change password
-// /user/{id}/password
-// takes in: db context, password hasher, validation, update user password dto
-// validate dto
-// if not valid, return bad request with the validation errors
-// get password hash and salt
-// get the user entity from db
-// if not found return not found
-// set paswword hash and salt on entity
-// save changes
-// return no content
 
 // change roles
 // /user/{id}/roles

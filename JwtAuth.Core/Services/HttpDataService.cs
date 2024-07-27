@@ -40,7 +40,6 @@ public class HttpDataService : IDataService
         }
         catch (Exception) { throw; }
     }
-
     public async Task<GetRoleDTO?> AddRole(CreateRoleDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
@@ -54,7 +53,6 @@ public class HttpDataService : IDataService
         }
         catch (Exception) { throw; }
     }
-
     public async Task ChangeUserPassword(int id, UpdateUserPasswordDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
@@ -67,7 +65,6 @@ public class HttpDataService : IDataService
         }
         catch (Exception) { throw; }
     }
-
     public async Task ChangeUserRoles(int id, UpdateUserRolesDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
@@ -80,7 +77,6 @@ public class HttpDataService : IDataService
         }
         catch (Exception) { throw; }
     }
-
     public async Task UpdateProfile(int id, UpdateProfileDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
@@ -94,9 +90,54 @@ public class HttpDataService : IDataService
         catch (Exception) { throw; }
     }
 
-    public Task<IEnumerable<GetRoleDTO>> GetRoles() => throw new NotImplementedException();
-    public Task<IEnumerable<string>> GetUsernames() => throw new NotImplementedException();
-    public Task<IEnumerable<string>> GetEmails() => throw new NotImplementedException();
-    public Task<IEnumerable<string>> GetPhones() => throw new NotImplementedException();
-    public Task<IEnumerable<string>> GetRolenames() => throw new NotImplementedException();
+    public async Task<IEnumerable<GetRoleDTO?>> GetRoles()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/role");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<GetRoleDTO>().ToBlockingEnumerable();
+        }
+        catch (Exception) { throw; }
+    }
+    public async Task<IEnumerable<string?>> GetUsernames()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/user/usernames");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<string>().ToBlockingEnumerable();
+        }
+        catch (Exception) { throw; }
+    }
+    public async Task<IEnumerable<string?>> GetEmails()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/profile/emails");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<string>().ToBlockingEnumerable();
+        }
+        catch (Exception) { throw; }
+    }
+    public async Task<IEnumerable<string?>> GetPhones()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/profile/phones");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<string>().ToBlockingEnumerable();
+        }
+        catch (Exception) { throw; }
+    }
+    public async Task<IEnumerable<string?>> GetRolenames()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/role/rolenames");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<string>().ToBlockingEnumerable();
+        }
+        catch (Exception) { throw; }
+    }
 }

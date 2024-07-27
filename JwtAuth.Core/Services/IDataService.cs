@@ -10,9 +10,9 @@ public interface IDataService
     Task ChangeUserPassword(int id, UpdateUserPasswordDTO dto);
     Task ChangeUserRoles(int id, UpdateUserRolesDTO dto);
     Task UpdateProfile(int id, UpdateProfileDTO dto);
-    Task<IEnumerable<GetRoleDTO>> GetRoles();
-    Task<IEnumerable<string>> GetUsernames();
-    Task<IEnumerable<string>> GetEmails();
-    Task<IEnumerable<string>> GetPhones();
-    Task<IEnumerable<string>> GetRolenames();
+    Task<IEnumerable<GetRoleDTO?>> GetRoles();
+    Task<IEnumerable<string?>> GetUsernames();
+    Task<IEnumerable<string?>> GetEmails();
+    Task<IEnumerable<string?>> GetPhones();
+    Task<IEnumerable<string?>> GetRolenames();
 }

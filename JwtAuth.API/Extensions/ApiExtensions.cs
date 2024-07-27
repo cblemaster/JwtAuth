@@ -199,6 +199,21 @@ internal static class ApiExtensions
             await context.SaveChangesAsync();
             return TypedResults.NoContent();
         });
+        app.MapGet("/role", Ok<IEnumerable<GetRoleDTO>> (JwtAuthContext context) =>
+        {
+            List<GetRoleDTO> roles = [];
+            context.Roles.OrderBy(r => r.Rolename).ToList().ForEach(r => roles.Add(r.MapRoleEntityToDTO()));
+            return TypedResults.Ok(roles.AsEnumerable());
+
+        });
+        app.MapGet("/user/usernames", Ok<IEnumerable<string>> (JwtAuthContext context) =>
+            TypedResults.Ok(context.Users.Select(u => u.Username).AsEnumerable()));
+        app.MapGet("/profile/emails", Ok<IEnumerable<string>> (JwtAuthContext context) =>
+            TypedResults.Ok(context.Profiles.Select(p => p.Email).AsEnumerable()));
+        app.MapGet("/profile/phones", Ok<IEnumerable<string>> (JwtAuthContext context) =>
+            TypedResults.Ok(context.Profiles.Select(p => p.Phone).AsEnumerable()));
+        app.MapGet("/role/rolenames", Ok<IEnumerable<string>> (JwtAuthContext context) =>
+            TypedResults.Ok(context.Roles.Select(r => r.Rolename).AsEnumerable()));
     }
     private static string GetDbConnectionStringFromConfig(this IConfigurationRoot configRoot) =>
         configRoot.GetConnectionString("Project") ?? "Error retrieving connection string!";

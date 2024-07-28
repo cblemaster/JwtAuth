@@ -8,7 +8,6 @@ internal static class ValidationRuleBuilderExtensions
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder.Must(s => !string.IsNullOrWhiteSpace(s))
             .WithMessage("{PropertyName} is required.");
-
     internal static IRuleBuilderOptions<T, string> StringLengthDoesNotExceedMax
         <T>(this IRuleBuilder<T, string> ruleBuilder, int max) =>
             ruleBuilder.Must((rootObject, s, context) =>
@@ -17,4 +16,8 @@ internal static class ValidationRuleBuilderExtensions
                 return s.Length <= max;
             })
             .WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
+    internal static IRuleBuilderOptions<T, string> StringNotInCollection
+        <T>(this IRuleBuilder<T, string> ruleBuilder, IEnumerable<string> collection) =>
+        ruleBuilder.Must(s => !collection.Contains(s))
+            .WithMessage("{PropertyName} is already in use.");
 }

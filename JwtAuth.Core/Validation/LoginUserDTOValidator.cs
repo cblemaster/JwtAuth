@@ -9,8 +9,7 @@ public class LoginUserDTOValidator : AbstractValidator<LoginUserDTO>
     {
         RuleFor(u => u.Username).StringNotEmpty()
             .StringLengthDoesNotExceedMax(ValidationConstants.USER_USERNAME_MAX_LENGTH);
-        // TODO: Rule for unique username
-        RuleFor(u => u.Password)
-            .StringNotEmpty().StringLengthDoesNotExceedMax(ValidationConstants.USER_PASSWORD_MAX_LENGTH);
+        RuleFor(u => u.Password).StringNotEmpty()
+            .StringLengthDoesNotExceedMax(ValidationConstants.USER_PASSWORD_MAX_LENGTH);
     }
 }

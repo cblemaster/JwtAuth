@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using JwtAuth.Core.DataTransferObjects;
+using JwtAuth.Core.Services;
 
 namespace JwtAuth.Core.Validation;
 
@@ -14,10 +15,10 @@ public class UpdateProfileDTOValidator : AbstractValidator<UpdateProfileDTO>
             .StringLengthDoesNotExceedMax(ValidationConstants.PROFILE_LASTNAME_MAX_LENGTH);
         RuleFor(p => p.Email).StringNotEmpty()
             .StringLengthDoesNotExceedMax(ValidationConstants.PROFILE_EMAIL_MAX_LENGTH)
-            .EmailAddress().WithMessage("{PropertyName} is not a valid email address.");
-        // TODO: Rule for unique email
+            .EmailAddress().WithMessage("{PropertyName} is not a valid email address.")
+            .StringNotInCollection(new HttpDataService().GetEmails().Result);
         RuleFor(p => p.Phone).StringNotEmpty()
-            .StringLengthDoesNotExceedMax(ValidationConstants.PROFILE_PHONE_MAX_LENGTH);
-        // TODO: Rule for unique phone
+            .StringLengthDoesNotExceedMax(ValidationConstants.PROFILE_PHONE_MAX_LENGTH)
+            .StringNotInCollection(new HttpDataService().GetPhones().Result);
     }
 }

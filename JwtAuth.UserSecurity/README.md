@@ -1,3 +1,0 @@
-# JwtAuth.UserSecurity
-
-## Coming soon!

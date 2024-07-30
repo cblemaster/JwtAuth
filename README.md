@@ -7,7 +7,8 @@
 ## Built with
  - NET 8 / C# 12
  - SQL server database
- - FluentValidation nuget package https://fluentvalidation.net
+ - Entity Framework Core 8
+ - FluentValidation https://fluentvalidation.net
 
 ## Features
  - Register as a new user
@@ -30,7 +31,7 @@
  - There are three (3) database tables
 	- User: username and encrypted password
 	- Profile: one-to-one association with User; name and other info not related to authentication (I think from a security perspective it makes sense to keep User and Profile data separate)
-	- Role: many-to-many association with User; roles that can be used in authroization schemes
+	- Role: many-to-many association with User; roles that can be used in authorization schemes
 
 ## Database rules
  - Values for these fields are required and have a maximum length:
@@ -56,9 +57,9 @@
  - TBD
 
 ## Project overview
-### Core
-### API
-### UI
+### UserSecurity
+### Web
+### UI (TBD)
 
 ## Instructions for running the application
  - TBD

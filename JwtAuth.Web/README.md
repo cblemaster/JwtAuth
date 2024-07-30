@@ -1,3 +1,0 @@
-# JwtAuth.Web
-
-## Coming soon!

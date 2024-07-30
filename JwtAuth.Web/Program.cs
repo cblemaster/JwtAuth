@@ -1,6 +1,15 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using JwtAuth.Web.Extensions;
 
-app.MapGet("/", () => "Hello World!");
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+IConfigurationRoot configRoot = builder.CreateAndBuildConfigurationRoot();
 
+builder
+    .RegisterDbContext(configRoot)
+    .RegisterAuthentication()
+    .RegisterJwtBearer(configRoot, builder)
+    .RegisterAuthorizationPolicies()
+    .RegisterDependencies(configRoot);
+
+WebApplication app = builder.Build();
+app.MapGet("/", () => "Welcome to JwtAuth!");
 app.Run();

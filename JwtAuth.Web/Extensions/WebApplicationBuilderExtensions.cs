@@ -1,5 +1,8 @@
-﻿using JwtAuth.UserSecurity;
+﻿using FluentValidation;
+using JwtAuth.UserSecurity;
 using JwtAuth.Web.DatabaseContexts;
+using JwtAuth.Web.DataTransferObjects;
+using JwtAuth.Web.DataValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -61,7 +64,14 @@ internal static class WebApplicationBuilderExtensions
         string jwtSecret = GetJwtSecret(configRoot);
         appBuilder.Services
             .AddSingleton<ITokenGenerator>(tk => new JwtGenerator(jwtSecret))
-            .AddSingleton<IPasswordHasher, PasswordHasher>();
+            .AddSingleton<IPasswordHasher, PasswordHasher>()
+            .AddScoped<IValidator<AddProfileDTO>, AddProfileDTOValidator>()
+            .AddScoped<IValidator<AddRoleDTO>, AddRoleDTOValidator>()
+            .AddScoped<IValidator<ChangeUserPasswordDTO>, ChangeUserPasswordDTOValidator>()
+            .AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
+            .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>()
+            .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>()
+            .AddScoped<IValidator<UpdateProfileDTO>, UpdateProfileDTOValidator>();
         return appBuilder;
     }
     private static string GetJwtSecret(IConfigurationRoot configRoot) =>

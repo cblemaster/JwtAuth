@@ -41,16 +41,6 @@ internal static class IRuleBuilderOptionsExtensions
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.USER_PASSWORD_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
-    internal static IRuleBuilderOptions<T, string> ValidateUserPasswordHash
-        <T>(this IRuleBuilder<T, string> ruleBuilder) =>
-        ruleBuilder
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.USER_PASSWORDHASH_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
-    internal static IRuleBuilderOptions<T, string> ValidateUserSalt
-        <T>(this IRuleBuilder<T, string> ruleBuilder) =>
-        ruleBuilder
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.USER_SALT_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
     internal static IRuleBuilderOptions<T, int> ValidateUserUserId
         <T>(this IRuleBuilder<T, int> ruleBuilder) =>
         ruleBuilder.GreaterThan(0).WithMessage("{PropertyName} is invalid.");

@@ -6,7 +6,7 @@ namespace JwtAuth.Web.DataValidation;
 
 internal class ChangeUserPasswordDTOValidator : AbstractValidator<ChangeUserPasswordDTO>
 {
-    internal ChangeUserPasswordDTOValidator()
+    public ChangeUserPasswordDTOValidator()
     {
         RuleFor(u => u.UserId).ValidateUserUserId();
         RuleFor(U => U.Password).ValidateUserPassword();

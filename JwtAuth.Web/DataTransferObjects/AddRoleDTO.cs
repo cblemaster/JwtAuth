@@ -2,5 +2,5 @@
 
 public class AddRoleDTO
 {
-    public string RoleName { get; set; } = string.Empty;
+    public string Rolename { get; set; } = string.Empty;
 }

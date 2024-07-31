@@ -6,7 +6,7 @@ namespace JwtAuth.Web.DataValidation;
 
 internal class AddProfileDTOValidator : AbstractValidator<AddProfileDTO>
 {
-    internal AddProfileDTOValidator()
+    public AddProfileDTOValidator()
     {
         RuleFor(p => p.FirstName).ValidateProfileFirstNameOrLastName();
         RuleFor(p => p.LastName).ValidateProfileFirstNameOrLastName();

@@ -6,5 +6,5 @@ namespace JwtAuth.Web.DataValidation;
 
 internal class AddRoleDTOValidator : AbstractValidator<AddRoleDTO>
 {
-    internal AddRoleDTOValidator() => RuleFor(r => r.RoleName).ValidateRoleRolename();
+    public AddRoleDTOValidator() => RuleFor(r => r.Rolename).ValidateRoleRolename();
 }

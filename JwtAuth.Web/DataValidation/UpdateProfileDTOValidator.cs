@@ -8,7 +8,7 @@ internal class UpdateProfileDTOValidator : AbstractValidator<UpdateProfileDTO>
 {
     internal UpdateProfileDTOValidator()
     {
-        RuleFor(p => p.ProfileId).GreaterThan(0).WithMessage("{PropertyName is invalid.}");
+        RuleFor(p => p.ProfileId).ValidateProfileProfileId();
         RuleFor(p => p.FirstName).ValidateProfileFirstNameOrLastName();
         RuleFor(p => p.LastName).ValidateProfileFirstNameOrLastName();
         RuleFor(p => p.Email).ValidateProfileEmail();

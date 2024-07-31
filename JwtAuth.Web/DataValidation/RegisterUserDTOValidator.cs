@@ -12,6 +12,6 @@ internal class RegisterUserDTOValidator : AbstractValidator<RegisterUserDTO>
         RuleFor(u => u.PasswordHash).ValidateUserPasswordHash();
         RuleFor(u => u.Salt).ValidateUserSalt();
         RuleFor(u => u.Profile).SetValidator(new AddProfileDTOValidator());
-        RuleFor(u => u.Roles).NotEmpty().WithMessage("A user must have at least one (1) role.");
+        RuleFor(u => u.Roles).ValidateUserRoles();
     }
 }

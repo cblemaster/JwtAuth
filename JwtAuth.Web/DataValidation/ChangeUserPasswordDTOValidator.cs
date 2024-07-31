@@ -8,7 +8,7 @@ internal class ChangeUserPasswordDTOValidator : AbstractValidator<ChangeUserPass
 {
     internal ChangeUserPasswordDTOValidator()
     {
-        RuleFor(u => u.UserId).GreaterThan(0).WithMessage("{PropertyName is invalid.}");
+        RuleFor(u => u.UserId).ValidateUserUserId();
         RuleFor(U => U.Password).ValidateUserPassword();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using JwtAuth.Web.DataTransferObjects;
 using JwtAuth.Web.DataValidation;
 
 namespace JwtAuth.Web.Extensions;
@@ -50,4 +51,13 @@ internal static class IRuleBuilderOptionsExtensions
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.USER_SALT_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
+    internal static IRuleBuilderOptions<T, int> ValidateUserUserId
+        <T>(this IRuleBuilder<T, int> ruleBuilder) =>
+        ruleBuilder.GreaterThan(0).WithMessage("{PropertyName} is invalid.");
+    internal static IRuleBuilderOptions<T, int> ValidateProfileProfileId
+        <T>(this IRuleBuilder<T, int> ruleBuilder) =>
+        ruleBuilder.GreaterThan(0).WithMessage("{PropertyName} is invalid.");
+    internal static IRuleBuilderOptions<T, IEnumerable<GetRoleDTO>> ValidateUserRoles
+        <T>(this IRuleBuilder<T, IEnumerable<GetRoleDTO>> ruleBuilder) =>
+        ruleBuilder.NotEmpty().WithMessage("A user must have at least one (1) role.");
 }

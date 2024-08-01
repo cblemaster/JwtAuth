@@ -65,4 +65,6 @@
  - TBD
 
 ## Improvement opportunities
- - TBD
+ - Keep project .NET versions up to date
+ - Keep nuget package versions up to date
+ - Move data validation in api endpoints (web project) into endpoint filters

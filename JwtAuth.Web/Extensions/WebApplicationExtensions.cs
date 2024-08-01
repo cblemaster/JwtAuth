@@ -23,6 +23,20 @@ internal static class WebApplicationExtensions
                 return TypedResults.BadRequest(validationResult.ToString());
             }
 
+            // TODO: Move this into proper validation (pass in collection of values from db to look in)
+            if (context.Users.Select(u => u.Username).Contains(dto.Username))
+            {
+                return TypedResults.BadRequest($"Username {dto.Username} is already in use.");
+            }
+            if (context.Users.Select(u => u.Profile.Email).Contains(dto.Profile.Email))
+            {
+                return TypedResults.BadRequest($"Email {dto.Profile.Email} is already in use.");
+            }
+            if (context.Users.Select(u => u.Profile.Phone).Contains(dto.Profile.Phone))
+            {
+                return TypedResults.BadRequest($"Phone {dto.Profile.Phone} is already in use.");
+            }
+
             PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
             DateTime now = DateTime.Now;
             User entity = dto.MapDTOToEntity();
@@ -71,6 +85,11 @@ internal static class WebApplicationExtensions
             if (!validationResult.IsValid)
             {
                 return TypedResults.BadRequest(validationResult.ToString());
+            }
+
+            if (context.Roles.Select(r => r.Rolename).Contains(dto.Rolename))
+            {
+                return TypedResults.BadRequest($"Role name {dto.Rolename} is already in use.");
             }
 
             Role entity = new()
@@ -135,6 +154,15 @@ internal static class WebApplicationExtensions
             if (!validationResult.IsValid)
             {
                 return TypedResults.BadRequest(validationResult.ToString());
+            }
+
+            if (context.Profiles.Select(p => p.Email).Contains(dto.Email))
+            {
+                return TypedResults.BadRequest($"Email {dto.Email} is already in use.");
+            }
+            if (context.Profiles.Select(p => p.Phone).Contains(dto.Phone))
+            {
+                return TypedResults.BadRequest($"Phone {dto.Phone} is already in use.");
             }
 
             Profile? entity = await context.Profiles.SingleOrDefaultAsync(p => p.ProfileId == id);

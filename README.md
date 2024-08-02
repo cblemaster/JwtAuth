@@ -61,7 +61,7 @@
 ### DataClient
 ### UserSecurity
 ### Web
-### UI (TBD)
+### MAUI (targeting windows destop only)
 
 ## Instructions for running the application
  - TBD
@@ -72,3 +72,4 @@
  - Move data validation in api endpoints (web project) into endpoint filters
  - Apply ASP.NET Core best practices from Microsoft in web project: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-8.0
  - The dtos and data validation in the web project and the data client project are exactly the same, an opportunity for a refactor (into a new core project?)
+ - New UI projects

@@ -3,6 +3,7 @@
 ## About
  - An application for managing user authentication and authorization with JWTs
  - With support for role-based authentication
+ - Application architecture visuals: ...\JwtAuth\Documentation
 
 ## Built with
  - NET 8 / C# 12
@@ -26,11 +27,11 @@
  - The solution will include logging, maybe from an external library (none of my apps has ever included logging, so I'm learning something new here too)
 
 ## Database overview
- - There is a script to create the SQL server database (location TBD)
+ - There is a script to create the SQL server database (...\JwtAuth\Database\JwtAuth-Create-Db-Script.sql)
  - This script also inserts some sample roles into the database
  - There are three (3) database tables
 	- User: username and encrypted password
-	- Profile: one-to-one association with User; name and other info not related to authentication (I think from a security perspective it makes sense to keep User and Profile data separate)
+	- Profile: one-to-one association with User; name and other info not related to authentication (I think from a security perspective it makes sense to keep User and Profile data separate. Then again, if they are related by FK...is that any different than having them in the same table...?)
 	- Role: many-to-many association with User; roles that can be used in authorization schemes
 
 ## Database rules
@@ -70,4 +71,4 @@
  - Keep nuget package versions up to date
  - Move data validation in api endpoints (web project) into endpoint filters
  - Apply ASP.NET Core best practices from Microsoft in web project: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-8.0
- - The dtos and data validation in the web project and the data client project are exactly the same, an opportunity for a refactor
+ - The dtos and data validation in the web project and the data client project are exactly the same, an opportunity for a refactor (into a new core project?)

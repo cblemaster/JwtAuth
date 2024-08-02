@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
+             x:Class="JwtAuth.MAUI.Pages.LoginPage"
+             x:DataType="{x:Type pagemodels:LoginPageModel}"
+             Title="Login">
+    <VerticalStackLayout>
+        <Label Text="Username:" />
+        <Entry Text="{Binding LoginUser.Username, Mode=OneWayToSource}"
+               Placeholder="username" MaxLength="50" />
+        <Label Text="Password:" />
+        <Entry Text="{Binding LoginUser.Password, Mode=OneWayToSource}"
+               IsPassword="True" Placeholder="password" MaxLength="50" />
+        <Button Command="{Binding LoginCommand, Mode=OneWay}" Text="Login" />
+    </VerticalStackLayout>
+</ContentPage>

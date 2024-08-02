@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using JwtAuth.MAUI.PageModels;
+using JwtAuth.MAUI.Pages;
 using Microsoft.Extensions.Logging;
 
 namespace JwtAuth.MAUI
@@ -16,7 +18,9 @@ namespace JwtAuth.MAUI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 })
-                .Services.AddSingleton<AppShell>();
+                .Services.AddSingleton<AppShell>()
+                    .AddTransient<LoginPageModel>()
+                    .AddTransient<LoginPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

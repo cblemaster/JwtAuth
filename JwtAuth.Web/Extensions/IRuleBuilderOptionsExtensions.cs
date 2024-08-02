@@ -21,7 +21,7 @@ internal static class IRuleBuilderOptionsExtensions
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.PROFILE_EMAIL_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
-            .EmailAddress().WithMessage("");
+            .EmailAddress().WithMessage("{PropertyName is not a valid email address.}");
     internal static IRuleBuilderOptions<T, string> ValidateProfilePhone
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder

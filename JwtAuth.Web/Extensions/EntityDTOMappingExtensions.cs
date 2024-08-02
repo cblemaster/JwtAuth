@@ -17,7 +17,6 @@ internal static class EntityDTOMappingExtensions
                 Phone = dto.Profile.Phone,
             }
         };
-
     internal static GetUserDTO MapEntityToDTO(this User entity)
     {
         List<GetRoleDTO> roles = [];
@@ -27,7 +26,6 @@ internal static class EntityDTOMappingExtensions
         new GetProfileDTO(entity.Profile.ProfileId, entity.Profile.FirstName, entity.Profile.LastName, entity.Profile.Email,
         entity.Profile.Phone, entity.Profile.CreateDate, entity.Profile.UpdateDate), roles);
     }
-
     internal static GetRoleDTO MapEntityToDTO(this Role entity) =>
         new(entity.RoleId, entity.Rolename, entity.CreateDate, entity.UpdateDate);
 }

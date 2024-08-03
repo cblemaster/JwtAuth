@@ -31,13 +31,13 @@ public partial class LoginPageModel : ObservableObject
 
         try
         {
-            GetUserDTO? dto = await _dataClient.Login(LoginUser);
+            GetUserDTO? dto = await _dataClient.LoginAsync(LoginUser);
             CurrentUser.SetLogin(dto);
             // TODO: Redirect to modal user details page
         }
         catch (Exception e) { await DisplayErrorAsync(e.Message); }
     }
 
-    private async Task DisplayErrorAsync(string error) =>
+    private static async Task DisplayErrorAsync(string error) =>
         await Shell.Current.DisplayAlert("Error", $"The following error(s) occurred:\n{error}", "Ok");
 }

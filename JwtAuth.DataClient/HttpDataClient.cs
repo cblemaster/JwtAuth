@@ -14,7 +14,7 @@ public class HttpDataClient : IDataClient
         BaseAddress = new Uri(BASE_URI)
     };
 
-    public async Task<GetUserDTO?> Register(RegisterUserDTO dto)
+    public async Task<GetUserDTO?> RegisterAsync(RegisterUserDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -27,7 +27,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task<GetUserDTO?> Login(LoginUserDTO dto)
+    public async Task<GetUserDTO?> LoginAsync(LoginUserDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -40,7 +40,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task<GetRoleDTO?> AddRole(AddRoleDTO dto)
+    public async Task<GetRoleDTO?> AddRoleAsync(AddRoleDTO dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -53,7 +53,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task ChangeUserPassword(ChangeUserPasswordDTO dto, int id)
+    public async Task ChangeUserPasswordAsync(ChangeUserPasswordDTO dto, int id)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -65,7 +65,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task ChangeUserRoles(ChangeUserRolesDTO dto, int id)
+    public async Task ChangeUserRolesAsync(ChangeUserRolesDTO dto, int id)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -77,7 +77,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task UpdateProfile(UpdateProfileDTO dto, int id)
+    public async Task UpdateProfileAsync(UpdateProfileDTO dto, int id)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");

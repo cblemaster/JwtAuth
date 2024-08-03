@@ -4,10 +4,10 @@ namespace JwtAuth.DataClient;
 
 public interface IDataClient
 {
-    Task<GetUserDTO?> Register(RegisterUserDTO dto);
-    Task<GetUserDTO?> Login(LoginUserDTO dto);
-    Task<GetRoleDTO?> AddRole(AddRoleDTO dto);
-    Task ChangeUserPassword(ChangeUserPasswordDTO dto, int id);
-    Task ChangeUserRoles(ChangeUserRolesDTO dto, int id);
-    Task UpdateProfile(UpdateProfileDTO dto, int id);
+    Task<GetUserDTO?> RegisterAsync(RegisterUserDTO dto);
+    Task<GetUserDTO?> LoginAsync(LoginUserDTO dto);
+    Task<GetRoleDTO?> AddRoleAsync(AddRoleDTO dto);
+    Task ChangeUserPasswordAsync(ChangeUserPasswordDTO dto, int id);
+    Task ChangeUserRolesAsync(ChangeUserRolesDTO dto, int id);
+    Task UpdateProfileAsync(UpdateProfileDTO dto, int id);
 }

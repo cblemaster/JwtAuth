@@ -5,13 +5,18 @@
              x:Class="JwtAuth.MAUI.Pages.LoginPage"
              x:DataType="{x:Type pagemodels:LoginPageModel}"
              Title="Login">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+    </ContentPage.Resources>
     <VerticalStackLayout HorizontalOptions="Center">
-        <Label Text="Username:" Margin="0,0,0,10" />
+        <Label Text="Username:" />
         <Entry Text="{Binding LoginUser.Username, Mode=OneWayToSource}"
                Placeholder="username" MaxLength="50" Margin="0,0,0,40" MinimumWidthRequest="200" />
-        <Label Text="Password:" Margin="0,0,0,10" />
+        <Label Text="Password:" />
         <Entry Text="{Binding LoginUser.Password, Mode=OneWayToSource}"
                IsPassword="True" Placeholder="password" MaxLength="50" Margin="0,0,0,20" />
-        <Button Command="{Binding LoginCommand, Mode=OneWay}" Text="Login" />
+        <Button Command="{Binding LoginCommand, Mode=OneWay}" Text="Login" Margin="0,0,0,40" />
     </VerticalStackLayout>
 </ContentPage>

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.UserSecurity;
 using JwtAuth.Web.DatabaseContexts;
-using JwtAuth.Web.DataTransferObjects;
 using JwtAuth.Web.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;

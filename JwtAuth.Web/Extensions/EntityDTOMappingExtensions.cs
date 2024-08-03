@@ -1,4 +1,4 @@
-﻿using JwtAuth.Web.DataTransferObjects;
+﻿using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.Web.Entities;
 
 namespace JwtAuth.Web.Extensions;

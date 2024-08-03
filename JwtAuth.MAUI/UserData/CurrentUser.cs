@@ -1,4 +1,4 @@
-﻿using JwtAuth.DataClient.DataTransferObjects;
+﻿using JwtAuth.Core.DataTransferObjects;
 
 namespace JwtAuth.MAUI.UserData;
 

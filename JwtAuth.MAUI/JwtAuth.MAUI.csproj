@@ -65,6 +65,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\JwtAuth.Core\JwtAuth.Core.csproj" />
 	  <ProjectReference Include="..\JwtAuth.DataClient\JwtAuth.DataClient.csproj" />
 	</ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using JwtAuth.DataClient.DataTransferObjects;
+﻿using JwtAuth.Core.DataTransferObjects;
 using System.Net.Http.Json;
 using System.Text.Json;
 

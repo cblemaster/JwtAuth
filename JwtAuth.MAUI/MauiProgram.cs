@@ -25,6 +25,8 @@ namespace JwtAuth.MAUI
                 .Services.AddSingleton<AppShell>()
                     .AddTransient<LoginPageModel>()
                     .AddTransient<LoginPage>()
+                    .AddTransient<LogoutPageModel>()
+                    .AddTransient<LogoutPage>()
                     .AddSingleton<IDataClient, HttpDataClient>()
                     //.AddScoped<IValidator<AddProfileDTO>, AddProfileDTOValidator>()
                     //.AddScoped<IValidator<AddRoleDTO>, AddRoleDTOValidator>()

@@ -3,13 +3,14 @@
     x:Class="JwtAuth.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:JwtAuth.MAUI.Pages"
     Shell.FlyoutBehavior="Disabled"
-    Title="JwtAuth.MAUI">
-
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate pages:LoginPage}"
-        Route="Login" />
+    Title="JwtAuth">
+    <!--xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"-->
+    <TabBar>
+        <ShellContent Title="Login" ContentTemplate="{DataTemplate pages:LoginPage}"
+                      Route="Login" />
+        <ShellContent Title="Logout" ContentTemplate="{DataTemplate pages:LogoutPage}"
+                      Route="Logout" />
+    </TabBar>
 </Shell>

@@ -23,6 +23,8 @@ namespace JwtAuth.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 })
                 .Services.AddSingleton<AppShell>()
+                    .AddTransient<RegisterPageModel>()
+                    .AddTransient<RegisterPage>()
                     .AddTransient<LoginPageModel>()
                     .AddTransient<LoginPage>()
                     .AddTransient<LogoutPageModel>()
@@ -32,8 +34,8 @@ namespace JwtAuth.MAUI
                     //.AddScoped<IValidator<AddRoleDTO>, AddRoleDTOValidator>()
                     //.AddScoped<IValidator<ChangeUserPasswordDTO>, ChangeUserPasswordDTOValidator>()
                     //.AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
-                    .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>();
-            //.AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>()
+                    .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>()
+                    .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>();
             //.AddScoped<IValidator<UpdateProfileDTO>, UpdateProfileDTOValidator>();
 #if DEBUG
             builder.Logging.AddDebug();

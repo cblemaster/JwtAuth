@@ -3,7 +3,7 @@
 ## About
  - An application for managing user authentication and authorization with JWTs
  - With support for role-based authentication
- - Application architecture visuals: ...\JwtAuth\Documentation
+ - Application architecture visuals: \JwtAuth\Documentation
 
 ## Built with
  - NET 8 / C# 12
@@ -27,7 +27,7 @@
  - The solution will include logging, maybe from an external library (none of my apps has ever included logging, so I'm learning something new here too)
 
 ## Database overview
- - There is a script to create the SQL server database (...\JwtAuth\Database\JwtAuth-Create-Db-Script.sql)
+ - There is a script to create the SQL server database (\JwtAuth\Database\JwtAuth-Create-Db-Script.sql)
  - This script also inserts some sample roles into the database
  - There are three (3) database tables
 	- User: username and encrypted password
@@ -58,10 +58,11 @@
  - TBD
 
 ## Project overview
+### Core
 ### DataClient
+### MAUI (targeting windows desktop only)
 ### UserSecurity
 ### Web
-### MAUI (targeting windows destop only)
 
 ## Instructions for running the application
  - TBD

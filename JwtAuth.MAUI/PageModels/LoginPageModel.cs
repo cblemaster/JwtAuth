@@ -6,10 +6,7 @@ namespace JwtAuth.MAUI.PageModels;
 
 public partial class LoginPageModel : ObservableObject
 {
-    public LoginPageModel()
-    {
-        LoginUser = new();
-    }
+    public LoginPageModel() => LoginUser = new();
 
     [ObservableProperty]
     private LoginUserDTO loginUser = null!;

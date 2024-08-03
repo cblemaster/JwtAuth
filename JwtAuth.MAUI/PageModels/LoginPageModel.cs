@@ -8,16 +8,14 @@ using JwtAuth.MAUI.UserData;
 
 namespace JwtAuth.MAUI.PageModels;
 
-public partial class LoginPageModel : ObservableObject
+public partial class LoginPageModel : PageModelBase
 {
-    private readonly IDataClient _dataClient = null!;
-    private readonly IValidator<LoginUserDTO> _validator = null!;
+    private readonly IValidator<LoginUserDTO> _validator;
 
-    public LoginPageModel(IDataClient dataClient, IValidator<LoginUserDTO> validator)
+    public LoginPageModel(IDataClient dataclient, IValidator<LoginUserDTO> validator) : base(dataclient)
     {
-        LoginUser = new();
-        _dataClient = dataClient;
         _validator = validator;
+        LoginUser = new();
     }
 
     [ObservableProperty]

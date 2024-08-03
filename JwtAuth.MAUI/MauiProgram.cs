@@ -1,4 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using FluentValidation;
+using JwtAuth.Core.DataTransferObjects;
+using JwtAuth.Core.DataValidation;
+using JwtAuth.DataClient;
 using JwtAuth.MAUI.PageModels;
 using JwtAuth.MAUI.Pages;
 using Microsoft.Extensions.Logging;
@@ -20,8 +24,15 @@ namespace JwtAuth.MAUI
                 })
                 .Services.AddSingleton<AppShell>()
                     .AddTransient<LoginPageModel>()
-                    .AddTransient<LoginPage>();
-
+                    .AddTransient<LoginPage>()
+                    .AddSingleton<IDataClient, HttpDataClient>()
+                    //.AddScoped<IValidator<AddProfileDTO>, AddProfileDTOValidator>()
+                    //.AddScoped<IValidator<AddRoleDTO>, AddRoleDTOValidator>()
+                    //.AddScoped<IValidator<ChangeUserPasswordDTO>, ChangeUserPasswordDTOValidator>()
+                    //.AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
+                    .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>();
+            //.AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>()
+            //.AddScoped<IValidator<UpdateProfileDTO>, UpdateProfileDTOValidator>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

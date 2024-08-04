@@ -1,19 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FluentValidation;
 using FluentValidation.Results;
 using JwtAuth.Core.DataTransferObjects;
-using JwtAuth.DataClient;
 
 namespace JwtAuth.MAUI.PageModels;
 
-public partial class RegisterPageModel : PageModelBase
+public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
 {
-    private readonly IValidator<RegisterUserDTO> _validator = null!;
-
-    public RegisterPageModel(IDataClient dataClient, IValidator<RegisterUserDTO> validator) : base(dataClient)
+    public RegisterPageModel()
     {
-        _validator = validator;
         RegisterUser = new();
     }
 
@@ -23,17 +18,14 @@ public partial class RegisterPageModel : PageModelBase
     [RelayCommand]
     private async Task RegisterAsync()
     {
-        ValidationResult vr = _validator.Validate(RegisterUser);
-        if (!vr.IsValid) { await DisplayErrorAsync(vr.ToString()); }
+        ValidationResult vr = base._validator.Validate(RegisterUser);
+        if (!vr.IsValid) { await base.DisplayErrorAsync(vr.ToString()); }
 
         try
         {
-            GetUserDTO? dto = await _dataClient.RegisterAsync(RegisterUser);
+            GetUserDTO? dto = await base._dataClient.RegisterAsync(RegisterUser);
             // TODO: Redirect to login page
         }
-        catch (Exception e) { await DisplayErrorAsync(e.Message); }
+        catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }
-
-    private static async Task DisplayErrorAsync(string error) =>
-        await Shell.Current.DisplayAlert("Error", $"The following error(s) occurred:\n{error}", "Ok");
 }

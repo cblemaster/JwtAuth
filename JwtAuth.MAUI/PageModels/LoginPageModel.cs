@@ -1,20 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FluentValidation;
 using FluentValidation.Results;
 using JwtAuth.Core.DataTransferObjects;
-using JwtAuth.DataClient;
 using JwtAuth.MAUI.UserData;
 
 namespace JwtAuth.MAUI.PageModels;
 
-public partial class LoginPageModel : PageModelBase
+public partial class LoginPageModel : PageModelBase<LoginUserDTO>
 {
-    private readonly IValidator<LoginUserDTO> _validator;
-
-    public LoginPageModel(IDataClient dataclient, IValidator<LoginUserDTO> validator) : base(dataclient)
+    public LoginPageModel()
     {
-        _validator = validator;
         LoginUser = new();
     }
 
@@ -24,18 +19,15 @@ public partial class LoginPageModel : PageModelBase
     [RelayCommand]
     private async Task LoginAsync()
     {
-        ValidationResult vr = _validator.Validate(LoginUser);
-        if (!vr.IsValid) { await DisplayErrorAsync(vr.ToString()); }
+        ValidationResult vr = base._validator.Validate(LoginUser);
+        if (!vr.IsValid) { await base.DisplayErrorAsync(vr.ToString()); }
 
         try
         {
-            GetUserDTO? dto = await _dataClient.LoginAsync(LoginUser);
+            GetUserDTO? dto = await base._dataClient.LoginAsync(LoginUser);
             CurrentUser.SetLogin(dto);
             // TODO: Redirect to modal user details page
         }
-        catch (Exception e) { await DisplayErrorAsync(e.Message); }
+        catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }
-
-    private static async Task DisplayErrorAsync(string error) =>
-        await Shell.Current.DisplayAlert("Error", $"The following error(s) occurred:\n{error}", "Ok");
 }

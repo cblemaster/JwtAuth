@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.Core.DataValidation;
+using System.Text.RegularExpressions;
 
 namespace JwtAuth.Core.Extensions;
 
@@ -26,7 +27,8 @@ internal static class IRuleBuilderOptionsExtensions
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.PROFILE_PHONE_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
+            .MaximumLength(DataConstants.PROFILE_PHONE_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
+            .Must(p => p.All(s => Regex.IsMatch(s.ToString(), "[0-9]"))).WithMessage("{PropertyName} must be all numerals.");
     internal static IRuleBuilderOptions<T, string> ValidateRoleRolename
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder

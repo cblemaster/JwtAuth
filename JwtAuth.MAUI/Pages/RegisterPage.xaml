@@ -2,38 +2,65 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
+             xmlns:dtos="clr-namespace:JwtAuth.Core.DataTransferObjects;assembly=JwtAuth.Core"
              x:Class="JwtAuth.MAUI.Pages.RegisterPage"
              x:DataType="{x:Type pagemodels:RegisterPageModel}"
              Title="Register">
     <ContentPage.Resources>
-        <Style TargetType="Label">
-            <Setter Property="Margin" Value="0,0,0,10" />
+        <Style TargetType="VerticalStackLayout" x:Key="LabelEntryStackStyle">
+            <Setter Property="Spacing" Value="10" />
+            <Setter Property="Margin" Value="10" />
         </Style>
         <Style TargetType="Entry">
-            <Setter Property="Margin" Value="0,0,0,20" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource Gray200}" />
         </Style>
     </ContentPage.Resources>
-    <ScrollView>
-        <VerticalStackLayout HorizontalOptions="Center">
+    <Grid ColumnDefinitions="1*,1*,1*" RowDefinitions="15*,10*,10*" Margin="20">
+        <VerticalStackLayout Style="{StaticResource LabelEntryStackStyle}">
             <Label Text="Username:" />
             <Entry Text="{Binding RegisterUser.Username, Mode=OneWayToSource}"
-                Placeholder="username" MaxLength="50" MinimumWidthRequest="200" />
+                Placeholder="username" MaxLength="50" />
             <Label Text="Password:" />
             <Entry Text="{Binding RegisterUser.Password, Mode=OneWayToSource}"
                 IsPassword="True" Placeholder="password" MaxLength="50" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1" Style="{StaticResource LabelEntryStackStyle}">
             <Label Text="First name:" />
             <Entry Text="{Binding RegisterUser.Profile.FirstName, Mode=OneWayToSource}"
                 Placeholder="first name" MaxLength="255" />
             <Label Text="Last name:" />
             <Entry Text="{Binding RegisterUser.Profile.LastName, Mode=OneWayToSource}"
                 Placeholder="last name" MaxLength="255" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="2" Style="{StaticResource LabelEntryStackStyle}">
             <Label Text="Email:" />
             <Entry Text="{Binding RegisterUser.Profile.Email, Mode=OneWayToSource}"
                 Placeholder="email" MaxLength="255" />
             <Label Text="Phone:" />
             <Entry Text="{Binding RegisterUser.Profile.Phone, Mode=OneWayToSource}"
                 Placeholder="phone" MaxLength="10" />
-            <Button Command="{Binding RegisterCommand, Mode=OneWay}" Text="Login" Margin="0,0,0,40" />
         </VerticalStackLayout>
-    </ScrollView>
+        <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="3" Margin="10">
+            <Label Text="Roles:" />
+            <CollectionView ItemsSource="{Binding Roles, Mode=OneWay}" SelectedItems="{Binding RegisterUser.Roles, Mode=TwoWay}"
+                SelectionMode="Multiple" Margin="10">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type dtos:GetRoleDTO}">
+                        <Label Text="{Binding Rolename, Mode=OneWay}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <Label Text="No roles found!" />
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="3" HorizontalOptions="Center" Margin="10">
+            <Button Command="{Binding RegisterCommand, Mode=OneWay}" Text="Register" Margin="0,0,0,40" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

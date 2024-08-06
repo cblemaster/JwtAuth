@@ -28,4 +28,10 @@ internal static class EntityDTOMappingExtensions
     }
     internal static GetRoleDTO MapEntityToDTO(this Role entity) =>
         new(entity.RoleId, entity.Rolename, entity.CreateDate, entity.UpdateDate);
+    internal static IEnumerable<GetRoleDTO> MapEntitiesToDTO(this IEnumerable<Role> entities)
+    {
+        List<GetRoleDTO> dtos = [];
+        entities.ToList().ForEach(r => dtos.Add(r.MapEntityToDTO()));
+        return dtos;
+    }
 }

@@ -10,4 +10,5 @@ public interface IDataClient
     Task ChangeUserPasswordAsync(ChangeUserPasswordDTO dto, int id);
     Task ChangeUserRolesAsync(ChangeUserRolesDTO dto, int id);
     Task UpdateProfileAsync(UpdateProfileDTO dto, int id);
+    Task<IEnumerable<GetRoleDTO?>> GetRolesAsync();
 }

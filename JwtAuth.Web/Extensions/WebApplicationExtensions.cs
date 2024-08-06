@@ -180,5 +180,11 @@ internal static class WebApplicationExtensions
             await context.SaveChangesAsync();
             return TypedResults.NoContent();
         });
+        webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<GetRoleDTO>>> (JwtAuthContext context) =>
+        {
+            return context.Roles.OrderBy(r => r.Rolename).AsEnumerable() is IEnumerable<Role> roles
+                ? TypedResults.Ok(roles.MapEntitiesToDTO())
+                : TypedResults.NotFound();
+        });
     }
 }

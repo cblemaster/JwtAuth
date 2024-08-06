@@ -89,4 +89,14 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
+    public async Task<IEnumerable<GetRoleDTO?>> GetRolesAsync()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/role");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<GetRoleDTO>().ToBlockingEnumerable();
+        }
+        catch (Exception) { throw; }
+    }
 }

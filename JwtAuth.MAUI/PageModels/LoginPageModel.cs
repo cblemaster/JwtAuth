@@ -20,7 +20,11 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
     private async Task LoginAsync()
     {
         ValidationResult vr = base._validator.Validate(LoginUser);
-        if (!vr.IsValid) { await base.DisplayErrorAsync(vr.ToString()); }
+        if (!vr.IsValid)
+        {
+            await base.DisplayErrorAsync(vr.ToString());
+            return;
+        }
 
         try
         {

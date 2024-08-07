@@ -10,26 +10,33 @@ public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
 {
     public RegisterPageModel()
     {
-        RegisterUser = new();
-        RegisterUser.Profile = new();
-        Roles = new(Task.Run(() =>  _dataClient.GetRolesAsync()).Result);
+        RegisterUser = new() { Profile = new() };
+        AllRoles = new(Task.Run(() =>  _dataClient.GetRolesAsync()).Result);
     }
 
     [ObservableProperty]
     private RegisterUserDTO registerUser = null!;
 
     [ObservableProperty]
-    private ObservableCollection<GetRoleDTO?> roles = null!;
+    private ObservableCollection<GetRoleDTO> allRoles = null!;
+
+    [ObservableProperty]
+    private ObservableCollection<object> selectedRoles = new(Enumerable.Empty<object>());
 
     [RelayCommand]
     private async Task RegisterAsync()
     {
+        RegisterUser.Roles = SelectedRoles.Cast<GetRoleDTO>().AsEnumerable();
         ValidationResult vr = base._validator.Validate(RegisterUser);
-        if (!vr.IsValid) { await base.DisplayErrorAsync(vr.ToString()); }
+        if (!vr.IsValid)
+        {
+            await base.DisplayErrorAsync(vr.ToString());
+            return;
+        }
 
         try
         {
-            GetUserDTO? dto = await base._dataClient.RegisterAsync(RegisterUser);
+            _ = await base._dataClient.RegisterAsync(RegisterUser);
             // TODO: Redirect to login page
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }

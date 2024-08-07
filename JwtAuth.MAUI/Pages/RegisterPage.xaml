@@ -42,7 +42,7 @@
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="3" Margin="10">
             <Label Text="Roles:" />
-            <CollectionView ItemsSource="{Binding Roles, Mode=OneWay}" SelectedItems="{Binding RegisterUser.Roles, Mode=TwoWay}"
+            <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=OneWay}"
                 SelectionMode="Multiple" Margin="10">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />

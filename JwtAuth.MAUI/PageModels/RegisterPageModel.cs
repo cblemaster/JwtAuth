@@ -37,7 +37,8 @@ public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
         try
         {
             _ = await base._dataClient.RegisterAsync(RegisterUser);
-            // TODO: Redirect to login page
+            await Shell.Current.DisplayAlert("Success!", "You have been registered as a new user and will be directed to the login page.", "OK");
+            await Shell.Current.GoToAsync("///Login");
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }

@@ -21,7 +21,7 @@ public abstract class PageModelBase<T> : ObservableObject
             if (dataClient is not null) { _dataClient = dataClient; }
         }
     }
-    
+
     protected virtual async Task DisplayErrorAsync(string error) =>
         await Shell.Current.DisplayAlert("Error", $"The following error(s) occurred:\n{error}", "Ok");
 }

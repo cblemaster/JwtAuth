@@ -22,13 +22,13 @@ internal static class IRuleBuilderOptionsExtensions
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.PROFILE_EMAIL_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
-            .EmailAddress().WithMessage("{PropertyName is not a valid email address.}");
+            .EmailAddress().Unless(e => e is null).WithMessage("{PropertyName} is not a valid email address.");
     internal static IRuleBuilderOptions<T, string> ValidateProfilePhone
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.PROFILE_PHONE_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
-            .Must(p => p.All(s => Regex.IsMatch(s.ToString(), "[0-9]"))).WithMessage("{PropertyName} must be all numerals.");
+            .Must(p => p is not null && p.All(s => Regex.IsMatch(s.ToString(), "[0-9]"))).WithMessage("{PropertyName} must be all numerals.");
     internal static IRuleBuilderOptions<T, string> ValidateRoleRolename
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder

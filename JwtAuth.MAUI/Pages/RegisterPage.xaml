@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
-             xmlns:dtos="clr-namespace:JwtAuth.Core.DataTransferObjects;assembly=JwtAuth.Core"
              x:Class="JwtAuth.MAUI.Pages.RegisterPage"
              x:DataType="{x:Type pagemodels:RegisterPageModel}"
              Title="Register">
@@ -26,18 +25,18 @@
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Column="1" Style="{StaticResource LabelEntryStackStyle}">
             <Label Text="First name:" />
-            <Entry Text="{Binding RegisterUser.Profile.FirstName, Mode=OneWayToSource}"
+            <Entry Text="{Binding RegisterUser.FirstName, Mode=OneWayToSource}"
                 Placeholder="first name" MaxLength="255" />
             <Label Text="Last name:" />
-            <Entry Text="{Binding RegisterUser.Profile.LastName, Mode=OneWayToSource}"
+            <Entry Text="{Binding RegisterUser.LastName, Mode=OneWayToSource}"
                 Placeholder="last name" MaxLength="255" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Column="2" Style="{StaticResource LabelEntryStackStyle}">
             <Label Text="Email:" />
-            <Entry Text="{Binding RegisterUser.Profile.Email, Mode=OneWayToSource}"
+            <Entry Text="{Binding RegisterUser.Email, Mode=OneWayToSource}"
                 Placeholder="email" MaxLength="255" />
             <Label Text="Phone:" />
-            <Entry Text="{Binding RegisterUser.Profile.Phone, Mode=OneWayToSource}"
+            <Entry Text="{Binding RegisterUser.Phone, Mode=OneWayToSource}"
                 Placeholder="phone" MaxLength="10" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="3" Margin="10">
@@ -48,8 +47,8 @@
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type dtos:GetRoleDTO}">
-                        <Label Text="{Binding Rolename, Mode=OneWay}" />
+                    <DataTemplate x:DataType="{x:Type x:String}">
+                        <Label Text="{Binding ., Mode=OneWay}" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>

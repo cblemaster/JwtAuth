@@ -10,15 +10,15 @@ public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
 {
     public RegisterPageModel()
     {
-        RegisterUser = new() { Profile = new() };
-        AllRoles = new(Task.Run(() => _dataClient.GetRolesAsync()).Result.Cast<GetRoleDTO>());
+        RegisterUser = new();
+        //AllRoles = new(Task.Run(() => _dataClient.GetRolesAsync()).Result.Cast<GetRoleDTO>());
     }
 
     [ObservableProperty]
     private RegisterUserDTO registerUser = null!;
 
     [ObservableProperty]
-    private ObservableCollection<GetRoleDTO> allRoles = null!;
+    private ObservableCollection<string> allRoles = null!;
 
     [ObservableProperty]
     private ObservableCollection<object> selectedRoles = new(Enumerable.Empty<object>());
@@ -26,7 +26,7 @@ public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
     [RelayCommand]
     private async Task RegisterAsync()
     {
-        RegisterUser.Roles = SelectedRoles.Cast<GetRoleDTO>().AsEnumerable();
+        RegisterUser.Roles = string.Join(",", SelectedRoles);
         ValidationResult vr = base._validator.Validate(RegisterUser);
         if (!vr.IsValid)
         {

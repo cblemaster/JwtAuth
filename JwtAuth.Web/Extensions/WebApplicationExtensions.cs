@@ -28,13 +28,13 @@ internal static class WebApplicationExtensions
             {
                 return TypedResults.BadRequest($"Username {dto.Username} is already in use.");
             }
-            if (context.Users.Select(u => u.Email).Contains(dto.Profile.Email))
+            if (context.Users.Select(u => u.Email).Contains(dto.Email))
             {
-                return TypedResults.BadRequest($"Email {dto.Profile.Email} is already in use.");
+                return TypedResults.BadRequest($"Email {dto.Email} is already in use.");
             }
-            if (context.Users.Select(u => u.Phone).Contains(dto.Profile.Phone))
+            if (context.Users.Select(u => u.Phone).Contains(dto.Phone))
             {
-                return TypedResults.BadRequest($"Phone {dto.Profile.Phone} is already in use.");
+                return TypedResults.BadRequest($"Phone {dto.Phone} is already in use.");
             }
 
             PasswordHash hash = passwordHasher.ComputeHash(dto.Password);

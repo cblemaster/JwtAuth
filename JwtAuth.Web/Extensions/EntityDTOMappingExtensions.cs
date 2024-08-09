@@ -9,10 +9,10 @@ internal static class EntityDTOMappingExtensions
         new()
         {
             Username = dto.Username,
-            FirstName = dto.Profile.FirstName,
-            LastName = dto.Profile.LastName,
-            Email = dto.Profile.Email,
-            Phone = dto.Profile.Phone,
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            Email = dto.Email,
+            Phone = dto.Phone,
             Roles = dto.Roles,
         };
     internal static GetUserDTO MapEntityToDTO(this User entity) =>

@@ -65,13 +65,11 @@ internal static class WebApplicationBuilderExtensions
         appBuilder.Services
             .AddSingleton<ITokenGenerator>(tk => new JwtGenerator(jwtSecret))
             .AddSingleton<IPasswordHasher, PasswordHasher>()
-            .AddScoped<IValidator<AddProfileDTO>, AddProfileDTOValidator>()
-            .AddScoped<IValidator<AddRoleDTO>, AddRoleDTOValidator>()
             .AddScoped<IValidator<ChangeUserPasswordDTO>, ChangeUserPasswordDTOValidator>()
             .AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
             .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>()
             .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>()
-            .AddScoped<IValidator<UpdateProfileDTO>, UpdateProfileDTOValidator>();
+            .AddScoped<IValidator<UpdateUserProfileDTO>, UpdateProfileDTOValidator>();
         return appBuilder;
     }
     private static string GetJwtSecret(IConfigurationRoot configRoot) =>

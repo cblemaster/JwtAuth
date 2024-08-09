@@ -3,5 +3,5 @@
 public class ChangeUserRolesDTO
 {
     public int UserId { get; set; }
-    public virtual IEnumerable<GetRoleDTO> Roles { get; set; } = [];
+    public string Roles { get; set; } = string.Empty;
 }

@@ -16,24 +16,24 @@ internal static class IRuleBuilderOptionsExtensions
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.PROFILE_FIRSTLASTNAME_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
+            .MaximumLength(DataConstants.USER_FIRSTLASTNAME_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
     internal static IRuleBuilderOptions<T, string> ValidateProfileEmail
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.PROFILE_EMAIL_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
+            .MaximumLength(DataConstants.USER_EMAIL_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
             .EmailAddress().Unless(e => e is null).WithMessage("{PropertyName} is not a valid email address.");
     internal static IRuleBuilderOptions<T, string> ValidateProfilePhone
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.PROFILE_PHONE_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
+            .MaximumLength(DataConstants.USER_PHONE_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
             .Must(p => p is not null && p.All(s => Regex.IsMatch(s.ToString(), "[0-9]"))).WithMessage("{PropertyName} must be all numerals.");
-    internal static IRuleBuilderOptions<T, string> ValidateRoleRolename
+    internal static IRuleBuilderOptions<T, string> ValidateUserRoles
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
-            .MaximumLength(DataConstants.ROLE_ROLENAME_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
+            .MaximumLength(DataConstants.USER_ROLES_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
     internal static IRuleBuilderOptions<T, string> ValidateUserPassword
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
@@ -42,10 +42,4 @@ internal static class IRuleBuilderOptionsExtensions
     internal static IRuleBuilderOptions<T, int> ValidateUserUserId
         <T>(this IRuleBuilder<T, int> ruleBuilder) =>
         ruleBuilder.GreaterThan(0).WithMessage("{PropertyName} is invalid.");
-    internal static IRuleBuilderOptions<T, int> ValidateProfileProfileId
-        <T>(this IRuleBuilder<T, int> ruleBuilder) =>
-        ruleBuilder.GreaterThan(0).WithMessage("{PropertyName} is invalid.");
-    internal static IRuleBuilderOptions<T, IEnumerable<GetRoleDTO>> ValidateUserRoles
-        <T>(this IRuleBuilder<T, IEnumerable<GetRoleDTO>> ruleBuilder) =>
-        ruleBuilder.NotEmpty().WithMessage("A user must have at least one (1) role.");
 }

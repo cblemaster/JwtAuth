@@ -10,7 +10,6 @@ public class RegisterUserDTOValidator : AbstractValidator<RegisterUserDTO>
     {
         RuleFor(u => u.Username).ValidateUserUsername();
         RuleFor(u => u.Password).ValidateUserPassword();
-        RuleFor(u => u.Profile).SetValidator(new AddProfileDTOValidator());
         RuleFor(u => u.Roles).ValidateUserRoles();
     }
 }

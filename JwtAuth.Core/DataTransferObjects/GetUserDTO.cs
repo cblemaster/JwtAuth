@@ -1,8 +1,7 @@
 ﻿namespace JwtAuth.Core.DataTransferObjects;
 
-public record GetUserDTO(int UserId, int ProfileId, string Username,
-    DateTime CreateDate, DateTime? UpdateDate, GetProfileDTO Profile,
-    IEnumerable<GetRoleDTO> Roles)
+public record GetUserDTO(int UserId, string Username, string FirstName, string LastName, string Email,
+    string Phone, string Roles, DateTime CreateDate, DateTime? UpdateDate)
 {
     public string Token { get; set; } = string.Empty;
 }

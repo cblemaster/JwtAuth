@@ -28,23 +28,20 @@ internal static class WebApplicationExtensions
             {
                 return TypedResults.BadRequest($"Username {dto.Username} is already in use.");
             }
-            if (context.Users.Select(u => u.Profile.Email).Contains(dto.Profile.Email))
+            if (context.Users.Select(u => u.Email).Contains(dto.Profile.Email))
             {
                 return TypedResults.BadRequest($"Email {dto.Profile.Email} is already in use.");
             }
-            if (context.Users.Select(u => u.Profile.Phone).Contains(dto.Profile.Phone))
+            if (context.Users.Select(u => u.Phone).Contains(dto.Profile.Phone))
             {
                 return TypedResults.BadRequest($"Phone {dto.Profile.Phone} is already in use.");
             }
 
             PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
-            DateTime now = DateTime.Now;
             User entity = dto.MapDTOToEntity();
             entity.PasswordHash = hash.Password;
             entity.Salt = hash.Salt;
-            entity.CreateDate = now;
-            entity.Profile.CreateDate = now;
-            entity.Roles = [.. context.Roles.Where(r => dto.Roles.Select(r => r.RoleId).Contains(r.RoleId))];
+            entity.CreateDate = DateTime.Now;
 
             context.Users.Add(entity);
             await context.SaveChangesAsync();
@@ -60,7 +57,7 @@ internal static class WebApplicationExtensions
                 return TypedResults.BadRequest(validationResult.ToString());
             }
 
-            User? entity = await context.Users.Include(u => u.Profile).Include(u => u.Roles).SingleOrDefaultAsync(u => u.Username == dto.Username);
+            User? entity = await context.Users.SingleOrDefaultAsync(u => u.Username == dto.Username);
             if (entity is null)
             {
                 return TypedResults.Unauthorized();
@@ -72,36 +69,11 @@ internal static class WebApplicationExtensions
                 return TypedResults.Unauthorized();
             }
 
-            string token = tokenGenerator.GenerateToken(entity.UserId, entity.Username, entity.Roles.Select(r => r.Rolename));
+            string token = tokenGenerator.GenerateToken(entity.UserId, entity.Username, entity.Roles.Split(",").AsEnumerable());
             GetUserDTO returnDto = entity.MapEntityToDTO();
             returnDto.Token = token;
 
             return TypedResults.Ok(returnDto);
-        });
-        webApp.MapPost("/role", async Task<Results<BadRequest<string>, Created<GetRoleDTO>>> (JwtAuthContext context,
-            IValidator<AddRoleDTO> validator, AddRoleDTO dto) =>
-        {
-            ValidationResult validationResult = validator.Validate(dto);
-            if (!validationResult.IsValid)
-            {
-                return TypedResults.BadRequest(validationResult.ToString());
-            }
-
-            if (context.Roles.Select(r => r.Rolename).Contains(dto.Rolename))
-            {
-                return TypedResults.BadRequest($"Role name {dto.Rolename} is already in use.");
-            }
-
-            Role entity = new()
-            {
-                Rolename = dto.Rolename,
-                CreateDate = DateTime.Now,
-            };
-
-            context.Roles.Add(entity);
-            await context.SaveChangesAsync();
-
-            return TypedResults.Created("/", entity.MapEntityToDTO());
         });
         webApp.MapPut("/user/{id:int}/password", async Task<Results<BadRequest<string>, NotFound, NoContent>> (JwtAuthContext context, IPasswordHasher passwordHasher,
             IValidator<ChangeUserPasswordDTO> validator, ChangeUserPasswordDTO dto, int id) =>
@@ -112,7 +84,7 @@ internal static class WebApplicationExtensions
                 return TypedResults.BadRequest(validationResult.ToString());
             }
 
-            User? entity = await context.Users.Include(u => u.Profile).Include(u => u.Roles).SingleOrDefaultAsync(u => u.UserId == id);
+            User? entity = await context.Users.SingleOrDefaultAsync(u => u.UserId == id);
             if (entity is null)
             {
                 return TypedResults.NotFound();
@@ -135,56 +107,23 @@ internal static class WebApplicationExtensions
                 return TypedResults.BadRequest(validationResult.ToString());
             }
 
-            User? entity = await context.Users.Include(u => u.Profile).Include(u => u.Roles).SingleOrDefaultAsync(u => u.UserId == id);
+            User? entity = await context.Users.SingleOrDefaultAsync(u => u.UserId == id);
             if (entity is null)
             {
                 return TypedResults.NotFound();
             }
 
-            entity.Roles = [.. context.Roles.Where(r => dto.Roles.Select(rl => rl.RoleId).Contains(r.RoleId))];
+            // TODO >>  entity.Roles = [.. context.Roles.Where(r => dto.Roles.Select(rl => rl.RoleId).Contains(r.RoleId))];
             entity.UpdateDate = DateTime.Now;
 
             await context.SaveChangesAsync();
             return TypedResults.NoContent();
         });
-        webApp.MapPut("/profile/{id:int}", async Task<Results<BadRequest<string>, NotFound, NoContent>> (JwtAuthContext context,
-            IValidator<UpdateProfileDTO> validator, UpdateProfileDTO dto, int id) =>
-        {
-            ValidationResult validationResult = validator.Validate(dto);
-            if (!validationResult.IsValid)
-            {
-                return TypedResults.BadRequest(validationResult.ToString());
-            }
-
-            if (context.Profiles.Select(p => p.Email).Contains(dto.Email))
-            {
-                return TypedResults.BadRequest($"Email {dto.Email} is already in use.");
-            }
-            if (context.Profiles.Select(p => p.Phone).Contains(dto.Phone))
-            {
-                return TypedResults.BadRequest($"Phone {dto.Phone} is already in use.");
-            }
-
-            Profile? entity = await context.Profiles.SingleOrDefaultAsync(p => p.ProfileId == id);
-            if (entity is null)
-            {
-                return TypedResults.NotFound();
-            }
-
-            entity.FirstName = dto.FirstName;
-            entity.LastName = dto.LastName;
-            entity.Email = dto.Email;
-            entity.Phone = dto.Phone;
-            entity.UpdateDate = DateTime.Now;
-
-            await context.SaveChangesAsync();
-            return TypedResults.NoContent();
-        });
-        webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<GetRoleDTO>>> (JwtAuthContext context) =>
-        {
-            return context.Roles.OrderBy(r => r.Rolename).AsEnumerable() is IEnumerable<Role> roles
-                ? TypedResults.Ok(roles.MapEntitiesToDTO())
-                : TypedResults.NotFound();
-        });
+        //webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<GetRoleDTO>>> (JwtAuthContext context) =>
+        //{
+        //    // TODO >>  return context.Roles.OrderBy(r => r.Rolename).AsEnumerable() is IEnumerable<Role> roles
+        //    //    ? TypedResults.Ok(roles.MapEntitiesToDTO())
+        //    //    : TypedResults.NotFound();
+        //});
     }
 }

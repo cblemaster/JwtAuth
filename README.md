@@ -14,10 +14,9 @@
 ## Features
  - Register as a new user
  - Login as an existing user
- - Add roles
  - Change a user's password
  - Change a user's role(s)
- - Update a profile
+ - Update a user's 'profile' (non-authentication related info)
 
 ## My objectives
  - The solution will be a reusable template for my apps that need user identity management
@@ -28,25 +27,20 @@
 
 ## Database overview
  - There is a script to create the SQL server database (\JwtAuth\Database\JwtAuth-Create-Db-Script.sql)
- - This script also inserts some sample roles into the database
- - There are three (3) database tables
-	- User: username and encrypted password
-	- Profile: one-to-one association with User; name and other info not related to authentication (I think from a security perspective it makes sense to keep User and Profile data separate. Then again, if they are related by FK...is that any different than having them in the same table...?)
-	- Role: many-to-many association with User; roles that can be used in authorization schemes
-
+ - There is one (1) database table
+	- User: username and encrypted password, first name, last name, email, phone, roles that can be used in authorization schemes
+	
 ## Database rules
  - Values for these fields are required and have a maximum length:
 	- User.Username (50)
-	- Profile.FirstName (255)
-	- Profile.LastName (255)
-	- Profile.Email (255)
-	- Profile.Phone (10)
-	- Role.Rolename(50)
+	- User.FirstName (255)
+	- User.LastName (255)
+	- User.Email (255)
+	- User.Phone (10)
  - Values for these fields must be unique:
 	- User.Username
-	- Profile.Email
-	- Profile.Phone
-	- Role.Rolename
+	- User.Email
+	- User.Phone
 
 ## Business rules
  - Plain text passwords are not persisted to the database, but plain text passwords entered by a user have a maximum length of 50 characters

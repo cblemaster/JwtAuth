@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.Core.DataValidation;
 using System.Text.RegularExpressions;
 

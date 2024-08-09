@@ -16,6 +16,6 @@ internal static class EntityDTOMappingExtensions
             Roles = dto.Roles,
         };
     internal static GetUserDTO MapEntityToDTO(this User entity) =>
-        new (entity.UserId, entity.Username, entity.FirstName, entity.LastName,
+        new(entity.UserId, entity.Username, entity.FirstName, entity.LastName,
             entity.Email, entity.Phone, entity.Roles, entity.CreateDate, entity.UpdateDate);
 }

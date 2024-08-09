@@ -40,19 +40,6 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task<GetRoleDTO?> AddRoleAsync(AddRoleDTO dto)
-    {
-        StringContent content = new(JsonSerializer.Serialize(dto));
-        content.Headers.ContentType = new("application/json");
-
-        try
-        {
-            HttpResponseMessage response = await _client.PostAsync("/role", content);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<GetRoleDTO>();
-        }
-        catch (Exception) { throw; }
-    }
     public async Task ChangeUserPasswordAsync(ChangeUserPasswordDTO dto, int id)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
@@ -77,7 +64,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task UpdateProfileAsync(UpdateProfileDTO dto, int id)
+    public async Task UpdateProfileAsync(UpdateUserProfileDTO dto, int id)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -86,16 +73,6 @@ public class HttpDataClient : IDataClient
         {
             HttpResponseMessage response = await _client.PutAsync($"/profile/{id}", content);
             response.EnsureSuccessStatusCode();
-        }
-        catch (Exception) { throw; }
-    }
-    public async Task<IEnumerable<GetRoleDTO?>> GetRolesAsync()
-    {
-        try
-        {
-            HttpResponseMessage response = await _client.GetAsync("/role");
-            response.EnsureSuccessStatusCode();
-            return response.Content.ReadFromJsonAsAsyncEnumerable<GetRoleDTO>().ToBlockingEnumerable();
         }
         catch (Exception) { throw; }
     }

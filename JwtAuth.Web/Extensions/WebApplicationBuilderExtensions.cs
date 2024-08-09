@@ -5,8 +5,10 @@ using JwtAuth.UserSecurity;
 using JwtAuth.Web.DatabaseContexts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -50,13 +52,12 @@ internal static class WebApplicationBuilderExtensions
          });
         return appBuilder;
     }
-    internal static WebApplicationBuilder RegisterAuthorizationPolicies(this WebApplicationBuilder appBuilder)
+    internal static WebApplicationBuilder RegisterAuthorizationPolicies(this WebApplicationBuilder appBuilder, IConfigurationRoot configRoot)
     {
-        // TODO: Read roles from the database...
-        //appBuilder.Services.AddAuthorizationBuilder()
-        //    .AddPolicy("customerpolicy", policy => policy.RequireRole("customer"))
-        //    .AddPolicy("valetpolicy", policy => policy.RequireRole("valet"))
-        //    .AddPolicy("allrolespolicy", policy => policy.RequireRole("customer", "valet"));
+        AuthorizationBuilder authBuilder = appBuilder.Services.AddAuthorizationBuilder();
+        var roles = configRoot.GetValue<string>("Roles") ?? "Error retreiving roles!";
+
+        roles.Split(",").ToList().ForEach(r => authBuilder.AddPolicy($"{r}Policy", p => p.RequireRole($"{r}")));
         return appBuilder;
     }
     internal static WebApplicationBuilder RegisterDependencies(this WebApplicationBuilder appBuilder, IConfigurationRoot configRoot)

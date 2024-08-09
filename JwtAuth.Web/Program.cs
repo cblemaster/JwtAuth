@@ -7,7 +7,7 @@ builder
     .RegisterDbContext(configRoot)
     .RegisterAuthentication()
     .RegisterJwtBearer(configRoot, builder)
-    .RegisterAuthorizationPolicies()
+    .RegisterAuthorizationPolicies(configRoot)
     .RegisterDependencies(configRoot);
 
 WebApplication app = builder.Build();

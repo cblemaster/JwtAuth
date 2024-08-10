@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FluentValidation.Results;
 using JwtAuth.Core.DataTransferObjects;
+using JwtAuth.MAUI.Pages;
 using JwtAuth.MAUI.UserData;
 
 namespace JwtAuth.MAUI.PageModels;
@@ -25,7 +26,7 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
 
         try
         {
-            GetUserDTO dto = (await base._dataClient.LoginAsync(LoginUser))!;
+            GetUserDTO dto = (await base._dataClient.LoginAsync(LoginUser));
             if (dto is null)
             {
                 await base.DisplayErrorAsync("Error logging in.");
@@ -33,8 +34,8 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
             else
             {
                 CurrentUser.SetLogin(dto);
-                await Shell.Current.DisplayAlert("Success!", "You have been logged in.", "OK");
-                // TODO: Redirect to modal user details page    
+                //await Shell.Current.DisplayAlert("Success!", "You have been logged in.", "OK");
+                await Shell.Current.Navigation.PushModalAsync(new UserDetailPage(dto));
                 return;
             }
         }

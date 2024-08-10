@@ -8,10 +8,7 @@ namespace JwtAuth.MAUI.PageModels;
 
 public partial class LoginPageModel : PageModelBase<LoginUserDTO>
 {
-    public LoginPageModel()
-    {
-        LoginUser = new();
-    }
+    public LoginPageModel() => LoginUser = new();
 
     [ObservableProperty]
     private LoginUserDTO loginUser = null!;
@@ -28,9 +25,18 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
 
         try
         {
-            GetUserDTO? dto = await base._dataClient.LoginAsync(LoginUser);
-            CurrentUser.SetLogin(dto);
-            // TODO: Redirect to modal user details page
+            GetUserDTO dto = (await base._dataClient.LoginAsync(LoginUser))!;
+            if (dto is null)
+            {
+                await base.DisplayErrorAsync("Error logging in.");
+            }
+            else
+            {
+                CurrentUser.SetLogin(dto);
+                await Shell.Current.DisplayAlert("Success!", "You have been logged in.", "OK");
+                // TODO: Redirect to modal user details page    
+                return;
+            }
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }

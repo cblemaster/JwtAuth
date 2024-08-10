@@ -11,7 +11,7 @@ public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
     public RegisterPageModel()
     {
         RegisterUser = new();
-        //AllRoles = new(Task.Run(() => _dataClient.GetRolesAsync()).Result.Cast<GetRoleDTO>());
+        AllRoles = new(Task.Run(() => _dataClient.GetRolesAsync()).Result.Cast<string>());
     }
 
     [ObservableProperty]

@@ -3,36 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
              x:Class="JwtAuth.MAUI.Pages.UserDetailPage"
-             x:DataType="{x:Type pagemodels:RegisterPageModel}"
+             x:DataType="{x:Type pagemodels:UserDetailPageModel}"
              Title="User Detail">
-    <Grid ColumnDefinitions="1*,1*">
-        <VerticalStackLayout>
-            <Label Text="Account" />
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="HeightRequest" Value="30" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="Magenta" />
+        </Style>
+        <Style TargetType="VerticalStackLayout">
+            <Setter Property="Spacing" Value="10" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style TargetType="HorizontalStackLayout">
+            <Setter Property="Spacing" Value="10" />
+        </Style>
+        <Style TargetType="Label" x:Key="BigLabelStyle">
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid ColumnDefinitions="1*,1*" RowDefinitions="20,*" Margin="20">
+        <HorizontalStackLayout Grid.ColumnSpan="2" HorizontalOptions="End">
+            <Button Command="{Binding CloseCommand, Mode=OneWay}" Text="close X" />
+        </HorizontalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Account" Style="{StaticResource BigLabelStyle}" />
             <HorizontalStackLayout>
-                <Label Text="Username" FontSize="18" />
-                <Button Text="Change password" />
+                <Label Text="{Binding DetailUser.Username, Mode=OneWay}" FontSize="18" />
+                <Button Command="{Binding ChangeUserPasswordCommand, Mode=OneWay}" Text="Change password" />
             </HorizontalStackLayout>
-            <Label Text="User Id" />
-            <Label Text="Account holder since" />
-            <Label Text="Account last updated" />
+            <Label Text="{Binding DetailUser.UserId, Mode=OneWay, StringFormat='User Id: {0}'}" />
+            <Label Text="{Binding DetailUser.CreateDate, Mode=OneWay, StringFormat='Account holder since {0:d}'}" />
+            <Label Text="{Binding DetailUser.UpdateDate, Mode=OneWay, StringFormat='Account last updated {0:d}'}" Margin="0,0,0,15" />
             <HorizontalStackLayout>
                 <Label Text="Roles" />
-                <Button Text="Change roles" />
+                <Button Command="{Binding ChangeUserRolesCommand, Mode=OneWay}" Text="Change roles" />
             </HorizontalStackLayout>
+            <Label Text="{Binding DetailUser.Roles, Mode=OneWay}" Margin="0,0,0,15" />
             <HorizontalStackLayout>
                 <Label Text="Token" />
                 <Button Text="Show/Hide" />
             </HorizontalStackLayout>
+            <Label Text="{Binding DetailUser.Token, Mode=OneWay}" LineBreakMode="CharacterWrap" MaxLines="10" />
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Column="1">
-            <Label Text="Profile" />
+        <VerticalStackLayout Grid.Column="1" Grid.Row="1">
+            <Label Text="Profile" Style="{StaticResource BigLabelStyle}" />
             <HorizontalStackLayout>
-                <Label Text="First Name" />
-                <Button Text="Update profile" />
+                <Label Text="{Binding DetailUser.FirstName, Mode=OneWay, StringFormat='First name: {0}'}" />
+                <Button Command="{Binding UpdateUserProfileCommand, Mode=OneWay}" Text="Update profile" />
             </HorizontalStackLayout>
-            <Label Text="Last Name" />
-            <Label Text="Email" />
-            <Label Text="Phone" />
+            <Label Text="{Binding DetailUser.LastName, Mode=OneWay, StringFormat='Last name: {0}'}" />
+            <Label Text="{Binding DetailUser.Email, Mode=OneWay, StringFormat='Email: {0}'}" />
+            <Label Text="{Binding DetailUser.Phone, Mode=OneWay, StringFormat='Phone: {0}'}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

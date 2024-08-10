@@ -11,7 +11,7 @@ namespace JwtAuth.Web.Extensions;
 
 internal static class WebApplicationExtensions
 {
-    internal static void MapApiEndpoints(this WebApplication webApp)
+    internal static void MapApiEndpoints(this WebApplication webApp, IConfigurationRoot configRoot)
     {
         webApp.MapGet("/", () => "Welcome to JwtAuth!");
         webApp.MapPost("/register", async Task<Results<BadRequest<string>, Created<GetUserDTO>>> (JwtAuthContext context, IPasswordHasher passwordHasher,
@@ -21,20 +21,6 @@ internal static class WebApplicationExtensions
             if (!validationResult.IsValid)
             {
                 return TypedResults.BadRequest(validationResult.ToString());
-            }
-
-            // TODO: Move this into proper validation (pass in collection of values from db to look in)
-            if (context.Users.Select(u => u.Username).Contains(dto.Username))
-            {
-                return TypedResults.BadRequest($"Username {dto.Username} is already in use.");
-            }
-            if (context.Users.Select(u => u.Email).Contains(dto.Email))
-            {
-                return TypedResults.BadRequest($"Email {dto.Email} is already in use.");
-            }
-            if (context.Users.Select(u => u.Phone).Contains(dto.Phone))
-            {
-                return TypedResults.BadRequest($"Phone {dto.Phone} is already in use.");
             }
 
             PasswordHash hash = passwordHasher.ComputeHash(dto.Password);
@@ -119,11 +105,12 @@ internal static class WebApplicationExtensions
             await context.SaveChangesAsync();
             return TypedResults.NoContent();
         });
-        //webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<GetRoleDTO>>> (JwtAuthContext context) =>
-        //{
-        //    // TODO >>  return context.Roles.OrderBy(r => r.Rolename).AsEnumerable() is IEnumerable<Role> roles
-        //    //    ? TypedResults.Ok(roles.MapEntitiesToDTO())
-        //    //    : TypedResults.NotFound();
-        //});
+        webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<string>>> (JwtAuthContext context) =>
+        {
+            string roles = configRoot.GetValue<string>("Roles")!;
+            return roles is not null
+                ? TypedResults.Ok(roles.Split(",").Order().AsEnumerable())
+                : (Results<NotFound, Ok<IEnumerable<string>>>)TypedResults.NotFound();
+        });
     }
 }

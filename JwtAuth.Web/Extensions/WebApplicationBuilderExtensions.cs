@@ -54,7 +54,7 @@ internal static class WebApplicationBuilderExtensions
     internal static WebApplicationBuilder RegisterAuthorizationPolicies(this WebApplicationBuilder appBuilder, IConfigurationRoot configRoot)
     {
         AuthorizationBuilder authBuilder = appBuilder.Services.AddAuthorizationBuilder();
-        var roles = configRoot.GetValue<string>("Roles") ?? "Error retreiving roles!";
+        string roles = configRoot.GetValue<string>("Roles") ?? "Error retreiving roles!";
 
         roles.Split(",").ToList().ForEach(r => authBuilder.AddPolicy($"{r}Policy", p => p.RequireRole($"{r}")));
         return appBuilder;

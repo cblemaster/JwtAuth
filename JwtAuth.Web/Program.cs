@@ -11,5 +11,5 @@ builder
     .RegisterDependencies(configRoot);
 
 WebApplication app = builder.Build();
-app.MapApiEndpoints();
+app.MapApiEndpoints(configRoot);
 app.Run();

@@ -6,23 +6,23 @@ namespace JwtAuth.Core.Extensions;
 
 internal static class IRuleBuilderOptionsExtensions
 {
-    internal static IRuleBuilderOptions<T, string> ValidateUserUsername
+    internal static IRuleBuilderOptions<T, string> ValidateUserUsername     // TODO >> check for unique username on register user
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.USER_USERNAME_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
-    internal static IRuleBuilderOptions<T, string> ValidateProfileFirstNameOrLastName
+    internal static IRuleBuilderOptions<T, string> ValidateUserFirstNameOrLastName
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.USER_FIRSTLASTNAME_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
-    internal static IRuleBuilderOptions<T, string> ValidateProfileEmail
+    internal static IRuleBuilderOptions<T, string> ValidateUserEmail     // TODO >> check for unique email on register user and update user profile
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .MaximumLength(DataConstants.USER_EMAIL_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.")
             .EmailAddress().Unless(e => e is null).WithMessage("{PropertyName} is not a valid email address.");
-    internal static IRuleBuilderOptions<T, string> ValidateProfilePhone
+    internal static IRuleBuilderOptions<T, string> ValidateUserPhone     // TODO >> check for unique phone on register user and update user profile
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
             .NotEmpty().WithMessage("{PropertyName} is required.")
@@ -31,7 +31,7 @@ internal static class IRuleBuilderOptionsExtensions
     internal static IRuleBuilderOptions<T, string> ValidateUserRoles
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
-            .NotEmpty().WithMessage("{PropertyName} is required.")
+            .NotEmpty().WithMessage("A new user must have one (1) or more {PropertyName}.")
             .MaximumLength(DataConstants.USER_ROLES_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
     internal static IRuleBuilderOptions<T, string> ValidateUserPassword
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>

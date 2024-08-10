@@ -8,9 +8,9 @@ public class UpdateProfileDTOValidator : AbstractValidator<UpdateUserProfileDTO>
 {
     public UpdateProfileDTOValidator()
     {
-        RuleFor(p => p.FirstName).ValidateProfileFirstNameOrLastName();
-        RuleFor(p => p.LastName).ValidateProfileFirstNameOrLastName();
-        RuleFor(p => p.Email).ValidateProfileEmail();
-        RuleFor(p => p.Phone).ValidateProfilePhone();
+        RuleFor(p => p.FirstName).ValidateUserFirstNameOrLastName();
+        RuleFor(p => p.LastName).ValidateUserFirstNameOrLastName();
+        RuleFor(p => p.Email).ValidateUserEmail();
+        RuleFor(p => p.Phone).ValidateUserPhone();
     }
 }

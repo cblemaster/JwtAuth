@@ -107,7 +107,7 @@ internal static class WebApplicationExtensions
         });
         webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<string>>> (JwtAuthContext context) =>
         {
-            string roles = configRoot.GetValue<string>("Roles")!;
+            string roles = configRoot.GetValue<string>("Roles");
             return roles is not null
                 ? TypedResults.Ok(roles.Split(",").Order().AsEnumerable())
                 : (Results<NotFound, Ok<IEnumerable<string>>>)TypedResults.NotFound();

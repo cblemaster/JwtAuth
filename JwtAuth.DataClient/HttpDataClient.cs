@@ -64,7 +64,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task UpdateProfileAsync(UpdateUserProfileDTO dto, int id)
+    public async Task UpdateUserProfileAsync(UpdateUserProfileDTO dto, int id)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
@@ -73,6 +73,17 @@ public class HttpDataClient : IDataClient
         {
             HttpResponseMessage response = await _client.PutAsync($"/profile/{id}", content);
             response.EnsureSuccessStatusCode();
+        }
+        catch (Exception) { throw; }
+    }
+
+    public async Task<IEnumerable<string>> GetRolesAsync()
+    {
+        try
+        {
+            HttpResponseMessage response = await _client.GetAsync("/role");
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<string>().ToBlockingEnumerable().Cast<string>();
         }
         catch (Exception) { throw; }
     }

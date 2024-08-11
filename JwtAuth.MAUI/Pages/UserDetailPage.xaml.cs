@@ -15,8 +15,8 @@ public partial class UserDetailPage
             UserDetailPageModel pageModel = services.GetService<UserDetailPageModel>();
             if (pageModel is not null)
             {
-                BindingContext = pageModel;
                 pageModel.DetailUser = dto;
+                BindingContext = pageModel;
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using FluentValidation;
 using JwtAuth.DataClient;
-using JwtAuth.MAUI.Pages;
 
 namespace JwtAuth.MAUI.PageModels;
 

@@ -12,7 +12,7 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
     public LoginPageModel() => LoginUser = new();
 
     [ObservableProperty]
-    private LoginUserDTO loginUser = null!;
+    private LoginUserDTO _loginUser = null!;
 
     [RelayCommand]
     private async Task LoginAsync()
@@ -34,7 +34,6 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
             else
             {
                 CurrentUser.SetLogin(dto);
-                //await Shell.Current.DisplayAlert("Success!", "You have been logged in.", "OK");
                 await Shell.Current.Navigation.PushModalAsync(new UserDetailPage(dto));
                 return;
             }

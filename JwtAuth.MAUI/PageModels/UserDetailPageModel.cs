@@ -7,7 +7,7 @@ namespace JwtAuth.MAUI.PageModels;
 public partial class UserDetailPageModel : PageModelBase<GetUserDTO>
 {
     [ObservableProperty]
-    private GetUserDTO detailUser = null!;
+    private GetUserDTO _detailUser = null!;
 
     [RelayCommand]
     private void ChangeUserPassword() { }

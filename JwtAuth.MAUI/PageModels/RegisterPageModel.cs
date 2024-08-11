@@ -15,13 +15,13 @@ public partial class RegisterPageModel : PageModelBase<RegisterUserDTO>
     }
 
     [ObservableProperty]
-    private RegisterUserDTO registerUser = null!;
+    private RegisterUserDTO _registerUser = null!;
 
     [ObservableProperty]
-    private ObservableCollection<string> allRoles = null!;
+    private ObservableCollection<string> _allRoles = null!;
 
     [ObservableProperty]
-    private ObservableCollection<object> selectedRoles = new(Enumerable.Empty<object>());
+    private ObservableCollection<object> _selectedRoles = new(Enumerable.Empty<object>());
 
     [RelayCommand]
     private async Task RegisterAsync()

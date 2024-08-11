@@ -4,9 +4,9 @@ using JwtAuth.Core.Extensions;
 
 namespace JwtAuth.Core.DataValidation;
 
-public class UpdateProfileDTOValidator : AbstractValidator<UpdateUserProfileDTO>
+public class UpdateUserProfileDTOValidator : AbstractValidator<UpdateUserProfileDTO>
 {
-    public UpdateProfileDTOValidator()
+    public UpdateUserProfileDTOValidator()
     {
         RuleFor(p => p.FirstName).ValidateUserFirstNameOrLastName();
         RuleFor(p => p.LastName).ValidateUserFirstNameOrLastName();

@@ -69,7 +69,7 @@ internal static class WebApplicationBuilderExtensions
             .AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
             .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>()
             .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>()
-            .AddScoped<IValidator<UpdateUserProfileDTO>, UpdateProfileDTOValidator>();
+            .AddScoped<IValidator<UpdateUserProfileDTO>, UpdateUserProfileDTOValidator>();
         return appBuilder;
     }
     private static string GetJwtSecret(IConfigurationRoot configRoot) =>

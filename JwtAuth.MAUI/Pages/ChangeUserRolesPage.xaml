@@ -4,9 +4,10 @@
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
              x:Class="JwtAuth.MAUI.Pages.ChangeUserRolesPage"
              x:DataType="{x:Type pagemodels:ChangeUserRolesPageModel}"
-             Title="Change User Roles">
+             Title="Change user roles">
     <VerticalStackLayout Style="{StaticResource ContainerVslStyle}">
-        <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=OneWay}" SelectionMode="Multiple" Margin="10">
+        <Label Text="{Binding ChangeRolesUser.Username, Mode=OneTime, StringFormat='Change roles for user: {0}'}" />
+        <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=TwoWay}" SelectionMode="Multiple" Margin="10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
             </CollectionView.ItemsLayout>
@@ -22,7 +23,7 @@
             </CollectionView.EmptyView>
         </CollectionView>
         <HorizontalStackLayout>
-            <Button Text="Save" />
+            <Button Command="{Binding ChangeUserRolesCommand, Mode=OneWay}" Text="Save" />
             <Button Command="{Binding CancelCommand, Mode=OneWay}" Text="Cancel" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

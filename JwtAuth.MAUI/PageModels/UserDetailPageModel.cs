@@ -13,21 +13,21 @@ public partial class UserDetailPageModel : PageModelBase<GetUserDTO>
     [RelayCommand]
     private async Task ChangeUserPasswordAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(DetailUser.UserId));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() { UserId = DetailUser.UserId, Username = DetailUser.Username}));
         return;
     }
 
     [RelayCommand]
-    private async Task ChangeUserRoles()
+    private async Task ChangeUserRolesAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserRolesPage(DetailUser.UserId, DetailUser.Roles.Split(",")));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserRolesPage(new ChangeUserRolesDTO() { UserId = DetailUser.UserId, Username = DetailUser.Username, Roles = DetailUser.Roles }));
         return;
     }
 
     [RelayCommand]
-    private async Task UpdateUserProfile()
+    private async Task UpdateUserProfileAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new UpdateUserProfilePage(new UpdateUserProfileDTO() { UserId = DetailUser.UserId, FirstName = DetailUser.FirstName, LastName = DetailUser.LastName, Email = DetailUser.Email, Phone = DetailUser.Phone }));
+        await Shell.Current.Navigation.PushModalAsync(new UpdateUserProfilePage(new UpdateUserProfileDTO() { UserId = DetailUser.UserId, Username = DetailUser.Username, FirstName = DetailUser.FirstName, LastName = DetailUser.LastName, Email = DetailUser.Email, Phone = DetailUser.Phone }));
         return;
     }
 

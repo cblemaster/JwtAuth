@@ -37,7 +37,8 @@ namespace JwtAuth.MAUI
                     .AddScoped<IValidator<ChangeUserPasswordDTO>, ChangeUserPasswordDTOValidator>()
                     .AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
                     .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>()
-                    .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>();
+                    .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>()
+                    .AddScoped<IValidator<UpdateUserProfileDTO>, UpdateUserProfileDTOValidator>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

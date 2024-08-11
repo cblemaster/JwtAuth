@@ -99,10 +99,50 @@ internal static class WebApplicationExtensions
                 return TypedResults.NotFound();
             }
 
-            // TODO >>  entity.Roles = [.. context.Roles.Where(r => dto.Roles.Select(rl => rl.RoleId).Contains(r.RoleId))];
-            entity.UpdateDate = DateTime.Now;
+            if (entity.Roles != dto.Roles)
+            {
+                entity.Roles = dto.Roles;
+                entity.UpdateDate = DateTime.Now;
+                await context.SaveChangesAsync();
+            }
 
-            await context.SaveChangesAsync();
+            return TypedResults.NoContent();
+        });
+        webApp.MapPut("/user/{id:int}/profile", async Task<Results<BadRequest<string>, NotFound, NoContent>> (JwtAuthContext context,
+            IValidator<UpdateUserProfileDTO> validator, UpdateUserProfileDTO dto, int id) =>
+        {
+            ValidationResult validationResult = validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                return TypedResults.BadRequest(validationResult.ToString());
+            }
+
+            User? entity = await context.Users.SingleOrDefaultAsync(u => u.UserId == id);
+            if (entity is null)
+            {
+                return TypedResults.NotFound();
+            }
+            if (entity.FirstName != dto.FirstName)
+            {
+                entity.FirstName = dto.FirstName;
+            }
+            if (entity.LastName != dto.LastName)
+            {
+                entity.LastName = dto.LastName;
+            }
+            if (entity.Email != dto.Email)
+            {
+                entity.Email = dto.Email;
+            }
+            if (entity.Phone != dto.Phone)
+            {
+                entity.Phone = dto.Phone;
+            }
+            if (context.Entry(entity).State == EntityState.Modified)
+            {
+                entity.UpdateDate = DateTime.Now;
+                await context.SaveChangesAsync();
+            }
             return TypedResults.NoContent();
         });
         webApp.MapGet("/role", Results<NotFound, Ok<IEnumerable<string>>> (JwtAuthContext context) =>

@@ -1,10 +1,11 @@
+using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.MAUI.PageModels;
 
 namespace JwtAuth.MAUI.Pages;
 
 public partial class ChangeUserRolesPage : ContentPage
 {
-    public ChangeUserRolesPage(int userId, IEnumerable<string> roles)
+    public ChangeUserRolesPage(ChangeUserRolesDTO dto)
     {
         InitializeComponent();
 
@@ -14,9 +15,9 @@ public partial class ChangeUserRolesPage : ContentPage
             ChangeUserRolesPageModel pageModel = services.GetService<ChangeUserRolesPageModel>();
             if (pageModel is not null)
             {
-                pageModel.UserId = userId;
-                pageModel.SelectedRoles = new(roles);
                 BindingContext = pageModel;
+                pageModel.SelectedRoles = new(dto.Roles.Split(","));
+                pageModel.ChangeRolesUser = dto;
             }
         }
     }

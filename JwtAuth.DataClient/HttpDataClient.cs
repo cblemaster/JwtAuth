@@ -71,7 +71,7 @@ public class HttpDataClient : IDataClient
 
         try
         {
-            HttpResponseMessage response = await _client.PutAsync($"/profile/{id}", content);
+            HttpResponseMessage response = await _client.PutAsync($"/user/{id}/profile", content);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception) { throw; }

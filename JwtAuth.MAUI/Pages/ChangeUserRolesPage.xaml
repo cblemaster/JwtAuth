@@ -6,8 +6,7 @@
              x:DataType="{x:Type pagemodels:ChangeUserRolesPageModel}"
              Title="Change User Roles">
     <VerticalStackLayout>
-        <!--<CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=OneWay}"
-    SelectionMode="Multiple" Margin="10">
+        <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=OneWay}" SelectionMode="Multiple" Margin="10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
             </CollectionView.ItemsLayout>
@@ -21,25 +20,10 @@
                     <Label Text="No roles found!" />
                 </ContentView>
             </CollectionView.EmptyView>
-        </CollectionView>-->
-        <CollectionView SelectionMode="Multiple" Margin="10">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="Item" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <ContentView>
-                    <Label Text="No roles found!" />
-                </ContentView>
-            </CollectionView.EmptyView>
         </CollectionView>
         <HorizontalStackLayout>
             <Button Text="Save" Margin="0,0,0,40" />
-            <Button Text="Cancel" />
+            <Button Command="{Binding CancelCommand, Mode=OneWay}" Text="Cancel" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using FluentValidation;
 using JwtAuth.DataClient;
+using JwtAuth.MAUI.Pages;
 
 namespace JwtAuth.MAUI.PageModels;
 
@@ -24,4 +25,10 @@ public abstract class PageModelBase<T> : ObservableObject
 
     protected virtual async Task DisplayErrorAsync(string error) =>
         await Shell.Current.DisplayAlert("Error", $"The following error(s) occurred:\n{error}", "Ok");
+
+    protected virtual async Task CloseModalWindowAsync()
+    {
+        await Shell.Current.Navigation.PopModalAsync();
+        return;
+    }
 }

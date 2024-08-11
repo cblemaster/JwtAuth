@@ -6,21 +6,21 @@
              x:DataType="{x:Type pagemodels:UpdateUserProfilePageModel}"
              Title="Update User Profile">
     <VerticalStackLayout>
-        <!--<Label Text="First name:" />
-        <Entry Text="{Binding RegisterUser.FirstName, Mode=OneWayToSource}"
-        Placeholder="first name" MaxLength="255" />
+        <Label Text="First name:" />
+        <Entry Text="{Binding UpdateProfileUser.FirstName, Mode=TwoWay}"
+            Placeholder="first name" MaxLength="255" />
         <Label Text="Last name:" />
-        <Entry Text="{Binding RegisterUser.LastName, Mode=OneWayToSource}"
-        Placeholder="last name" MaxLength="255" />
+        <Entry Text="{Binding UpdateProfileUser.LastName, Mode=TwoWay}"
+            Placeholder="last name" MaxLength="255" />
         <Label Text="Email:" />
-        <Entry Text="{Binding RegisterUser.Email, Mode=OneWayToSource}"
-        Placeholder="email" MaxLength="255" />
+        <Entry Text="{Binding UpdateProfileUser.Email, Mode=TwoWay}"
+            Placeholder="email" MaxLength="255" />
         <Label Text="Phone:" />
-        <Entry Text="{Binding RegisterUser.Phone, Mode=OneWayToSource}"
-        Placeholder="phone" MaxLength="10" />
+        <Entry Text="{Binding UpdateProfileUser.Phone, Mode=TwoWay}"
+            Placeholder="phone" MaxLength="10" />
         <HorizontalStackLayout>
             <Button Text="Save" Margin="0,0,0,40" />
-            <Button Text="Cancel" />
-        </HorizontalStackLayout>-->
+            <Button Command="{Binding CancelCommand, Mode=OneWay}" Text="Cancel" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

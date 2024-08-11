@@ -1,12 +1,13 @@
+using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.MAUI.PageModels;
 
 namespace JwtAuth.MAUI.Pages;
 
 public partial class UpdateUserProfilePage : ContentPage
 {
-	public UpdateUserProfilePage()
-	{
-		InitializeComponent();
+    public UpdateUserProfilePage(UpdateUserProfileDTO dto)
+    {
+        InitializeComponent();
 
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
@@ -14,8 +15,8 @@ public partial class UpdateUserProfilePage : ContentPage
             UpdateUserProfilePageModel pageModel = services.GetService<UpdateUserProfilePageModel>();
             if (pageModel is not null)
             {
+                pageModel.UpdateProfileUser = dto;
                 BindingContext = pageModel;
-                //pageModel.DetailUser = dto;
             }
         }
     }

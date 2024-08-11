@@ -5,17 +5,8 @@
              x:Class="JwtAuth.MAUI.Pages.RegisterPage"
              x:DataType="{x:Type pagemodels:RegisterPageModel}"
              Title="Register">
-    <ContentPage.Resources>
-        <Style TargetType="VerticalStackLayout" x:Key="LabelEntryStackStyle">
-            <Setter Property="Spacing" Value="10" />
-            <Setter Property="Margin" Value="10" />
-        </Style>
-        <Style TargetType="Entry">
-            <Setter Property="PlaceholderColor" Value="{StaticResource Gray200}" />
-        </Style>
-    </ContentPage.Resources>
-    <Grid ColumnDefinitions="1*,1*,1*" RowDefinitions="15*,10*,10*" Margin="20">
-        <VerticalStackLayout Style="{StaticResource LabelEntryStackStyle}">
+    <Grid ColumnDefinitions="1*,1*,1*" RowDefinitions="15*,10*,10*" Style="{StaticResource ContainerGridStyle}">
+        <VerticalStackLayout Style="{StaticResource LabelEntryStackStyle}" Margin="10,0,10,10">
             <Label Text="Username:" />
             <Entry Text="{Binding RegisterUser.Username, Mode=OneWayToSource}"
                 Placeholder="username" MaxLength="50" />
@@ -23,7 +14,7 @@
             <Entry Text="{Binding RegisterUser.Password, Mode=OneWayToSource}"
                 IsPassword="True" Placeholder="password" MaxLength="50" />
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Column="1" Style="{StaticResource LabelEntryStackStyle}">
+        <VerticalStackLayout Grid.Column="1" Style="{StaticResource LabelEntryStackStyle}" Margin="10,0,10,10">
             <Label Text="First name:" />
             <Entry Text="{Binding RegisterUser.FirstName, Mode=OneWayToSource}"
                 Placeholder="first name" MaxLength="255" />
@@ -31,7 +22,7 @@
             <Entry Text="{Binding RegisterUser.LastName, Mode=OneWayToSource}"
                 Placeholder="last name" MaxLength="255" />
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Column="2" Style="{StaticResource LabelEntryStackStyle}">
+        <VerticalStackLayout Grid.Column="2" Style="{StaticResource LabelEntryStackStyle}" Margin="10,0,10,10">
             <Label Text="Email:" />
             <Entry Text="{Binding RegisterUser.Email, Mode=OneWayToSource}"
                 Placeholder="email" MaxLength="255" />
@@ -59,7 +50,7 @@
             </CollectionView>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="3" HorizontalOptions="Center" Margin="10">
-            <Button Command="{Binding RegisterCommand, Mode=OneWay}" Text="Register" Margin="0,0,0,40" />
+            <Button Command="{Binding RegisterCommand, Mode=OneWay}" Style="{StaticResource BigButtonStyle}" Text="Register" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

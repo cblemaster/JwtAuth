@@ -5,7 +5,8 @@
              x:Class="JwtAuth.MAUI.Pages.LogoutPage"
              x:DataType="{x:Type pagemodels:LogoutPageModel}"
              Title="Logout">
-    <VerticalStackLayout HorizontalOptions="Center">
-        <Button Command="{Binding LogoutCommand, Mode=OneWay}" Text="Logout" Margin="0,0,0,40" />
+    <VerticalStackLayout Style="{StaticResource ContainerVslStyle}">
+        <Button Command="{Binding LogoutCommand, Mode=OneWay}"
+                Style="{StaticResource BigButtonStyle}" Text="Logout" />
     </VerticalStackLayout>
 </ContentPage>

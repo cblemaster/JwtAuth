@@ -5,7 +5,7 @@
              x:Class="JwtAuth.MAUI.Pages.UpdateUserProfilePage"
              x:DataType="{x:Type pagemodels:UpdateUserProfilePageModel}"
              Title="Update User Profile">
-    <VerticalStackLayout>
+    <VerticalStackLayout Style="{StaticResource ContainerVslStyle}">
         <Label Text="First name:" />
         <Entry Text="{Binding UpdateProfileUser.FirstName, Mode=TwoWay}"
             Placeholder="first name" MaxLength="255" />
@@ -19,7 +19,7 @@
         <Entry Text="{Binding UpdateProfileUser.Phone, Mode=TwoWay}"
             Placeholder="phone" MaxLength="10" />
         <HorizontalStackLayout>
-            <Button Text="Save" Margin="0,0,0,40" />
+            <Button Text="Save" />
             <Button Command="{Binding CancelCommand, Mode=OneWay}" Text="Cancel" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

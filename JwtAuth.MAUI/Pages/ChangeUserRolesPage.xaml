@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
+             x:Class="JwtAuth.MAUI.Pages.ChangeUserRolesPage"
+             x:DataType="{x:Type pagemodels:ChangeUserRolesPageModel}"
+             Title="Change User Roles">
+    <VerticalStackLayout>
+        <!--<CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=OneWay}"
+    SelectionMode="Multiple" Margin="10">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <Label Text="{Binding ., Mode=OneWay}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <Label Text="No roles found!" />
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>-->
+        <CollectionView SelectionMode="Multiple" Margin="10">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="Item" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <Label Text="No roles found!" />
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>
+        <HorizontalStackLayout>
+            <Button Text="Save" Margin="0,0,0,40" />
+            <Button Text="Cancel" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

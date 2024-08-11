@@ -1,22 +1,21 @@
-using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.MAUI.PageModels;
 
 namespace JwtAuth.MAUI.Pages;
 
-public partial class UserDetailPage
+public partial class ChangeUserRolesPage : ContentPage
 {
-    public UserDetailPage(GetUserDTO dto)
-    {
-        InitializeComponent();
+	public ChangeUserRolesPage()
+	{
+		InitializeComponent();
 
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
         {
-            UserDetailPageModel pageModel = services.GetService<UserDetailPageModel>();
+            ChangeUserRolesPageModel pageModel = services.GetService<ChangeUserRolesPageModel>();
             if (pageModel is not null)
             {
                 BindingContext = pageModel;
-                pageModel.DetailUser = dto;
+                //pageModel.DetailUser = dto;
             }
         }
     }

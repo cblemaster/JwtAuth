@@ -30,12 +30,14 @@ namespace JwtAuth.MAUI
                     .AddTransient<LogoutPageModel>()
                     .AddTransient<LogoutPage>()
                     .AddTransient<UserDetailPageModel>()
+                    .AddTransient<ChangeUserPasswordPageModel>()
+                    .AddTransient<ChangeUserRolesPageModel>()
+                    .AddTransient<UpdateUserProfilePageModel>()
                     .AddSingleton<IDataClient, HttpDataClient>()
                     .AddScoped<IValidator<ChangeUserPasswordDTO>, ChangeUserPasswordDTOValidator>()
                     .AddScoped<IValidator<ChangeUserRolesDTO>, ChangeUserRolesDTOValidator>()
                     .AddScoped<IValidator<LoginUserDTO>, LoginUserDTOValidator>()
                     .AddScoped<IValidator<RegisterUserDTO>, RegisterUserDTOValidator>();
-            //.AddScoped<IValidator<UpdateProfileDTO>, UpdateProfileDTOValidator>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

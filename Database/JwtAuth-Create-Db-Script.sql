@@ -1,16 +1,18 @@
 USE master
 GO
 
-DECLARE @SQL nvarchar(1000);
+DECLARE @sql nvarchar(1000);
+
 IF EXISTS (SELECT 1 FROM sys.databases WHERE name = N'JwtAuth')
+
 BEGIN
-    SET @SQL = N'USE JwtAuth;
+    SET @sql = N'USE JwtAuth;
 
                  ALTER DATABASE JwtAuth SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
                  USE master;
 
                  DROP DATABASE JwtAuth;';
-    EXEC (@SQL);
+    EXEC (@sql);
 END;
 
 CREATE DATABASE JwtAuth

@@ -31,7 +31,7 @@ internal static class IRuleBuilderOptionsExtensions
     internal static IRuleBuilderOptions<T, string> ValidateUserRoles
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>
         ruleBuilder
-            .NotEmpty().WithMessage("A new user must have one (1) or more {PropertyName}.")
+            .NotEmpty().WithMessage("A user must have one (1) or more {PropertyName}.")
             .MaximumLength(DataConstants.USER_ROLES_MAX_LENGTH).WithMessage("{PropertyName} must be {MaxLength} characters or fewer.");
     internal static IRuleBuilderOptions<T, string> ValidateUserPassword
         <T>(this IRuleBuilder<T, string> ruleBuilder) =>

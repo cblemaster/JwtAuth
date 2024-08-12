@@ -27,7 +27,7 @@ public partial class UpdateUserProfilePageModel : PageModelBase<UpdateUserProfil
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }
-    
+
     [RelayCommand]
     private async Task CancelAsync()
     {

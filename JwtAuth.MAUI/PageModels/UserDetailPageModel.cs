@@ -13,7 +13,7 @@ public partial class UserDetailPageModel : PageModelBase<GetUserDTO>
     [RelayCommand]
     private async Task ChangeUserPasswordAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() { UserId = DetailUser.UserId, Username = DetailUser.Username}));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() { UserId = DetailUser.UserId, Username = DetailUser.Username }));
         return;
     }
 

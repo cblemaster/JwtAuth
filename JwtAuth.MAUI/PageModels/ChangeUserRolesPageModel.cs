@@ -40,7 +40,7 @@ public partial class ChangeUserRolesPageModel : PageModelBase<ChangeUserRolesDTO
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }
-    
+
     [RelayCommand]
     private async Task CancelAsync()
     {

@@ -27,7 +27,7 @@ public partial class ChangeUserPasswordPageModel : PageModelBase<ChangeUserPassw
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }
-    
+
     [RelayCommand]
     private async Task CancelAsync()
     {

@@ -23,7 +23,6 @@
  - The solution will have separation of concerns (ask each class what its job is)
  - The solution will be clean code that is as 'DRY' as I can get it
  - The solution will use the FluentValidation library (which I haven't used before, so I will learn something new)
- - The solution will include logging, maybe from an external library (none of my apps has ever included logging, so I'm learning something new here too)
 
 ## Database overview
  - There is a script to create the SQL server database (\JwtAuth\Database\JwtAuth-Create-Db-Script.sql)
@@ -37,7 +36,7 @@
 	- User.LastName (255)
 	- User.Email (255)
 	- User.Phone (10)
- - Values for these fields must be unique:
+ - Values for these fields must be unique (currently only enforced by the web api):
 	- User.Username
 	- User.Email
 	- User.Phone
@@ -67,3 +66,4 @@
  - Move data validation in api endpoints (web project) into endpoint filters
  - Apply ASP.NET Core best practices from Microsoft in web project: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-8.0
  - New UI projects
+ - Better validation for unique username, email, and phone

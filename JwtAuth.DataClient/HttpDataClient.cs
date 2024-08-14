@@ -6,13 +6,13 @@ namespace JwtAuth.DataClient;
 
 public class HttpDataClient : IDataClient
 {
-    internal readonly HttpClient _client;
+    private readonly HttpClient _client;
     private const string BASE_URI = "https://localhost:7038/";
 
     public HttpDataClient() => _client =
         new HttpClient { BaseAddress = new Uri(BASE_URI) };
-    
-    public async Task<GetUserDTO> RegisterAsync(RegisterUserDTO dto)
+
+    public async Task<GetUserDTO?> RegisterAsync(RegisterUserDTO dto)
     {
         StringContent content = GetHttpContentAsString<RegisterUserDTO>(dto);
 
@@ -22,7 +22,7 @@ public class HttpDataClient : IDataClient
         }
         catch (Exception) { throw; }
     }
-    public async Task<GetUserDTO> LoginAsync(LoginUserDTO dto)
+    public async Task<GetUserDTO?> LoginAsync(LoginUserDTO dto)
     {
         StringContent content = GetHttpContentAsString<LoginUserDTO>(dto);
 
@@ -68,18 +68,19 @@ public class HttpDataClient : IDataClient
         {
             HttpResponseMessage response = await _client.GetAsync("/role");
             response.EnsureSuccessStatusCode();
-            return response.Content.ReadFromJsonAsAsyncEnumerable<string>().ToBlockingEnumerable().Cast<string>();
+            return response.Content.ReadFromJsonAsAsyncEnumerable<string>()
+                .ToBlockingEnumerable().Cast<string>();
         }
         catch (Exception) { throw; }
     }
-    
+
     private static StringContent GetHttpContentAsString<T>(T dto)
     {
         StringContent content = new(JsonSerializer.Serialize(dto));
         content.Headers.ContentType = new("application/json");
         return content;
     }
-    private async Task<T> PostAsync<T>(string route, StringContent requestContent)
+    private async Task<T?> PostAsync<T>(string route, StringContent requestContent)
     {
         try
         {

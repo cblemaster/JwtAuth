@@ -31,7 +31,8 @@ internal static class WebApplicationBuilderExtensions
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         });
-    internal static WebApplicationBuilder RegisterJwtBearer(this AuthenticationBuilder authBuilder, IConfigurationRoot configRoot, WebApplicationBuilder appBuilder)
+    internal static WebApplicationBuilder RegisterJwtBearer(this AuthenticationBuilder authBuilder,
+        IConfigurationRoot configRoot, WebApplicationBuilder appBuilder)
     {
         string jwtSecret = GetJwtSecret(configRoot);
         byte[] key = Encoding.ASCII.GetBytes(jwtSecret);
@@ -56,7 +57,8 @@ internal static class WebApplicationBuilderExtensions
         AuthorizationBuilder authBuilder = appBuilder.Services.AddAuthorizationBuilder();
         string roles = configRoot.GetValue<string>("Roles") ?? "Error retreiving roles!";
 
-        roles.Split(",").ToList().ForEach(r => authBuilder.AddPolicy($"{r}Policy", p => p.RequireRole($"{r}")));
+        roles.Split(",").ToList()
+            .ForEach(r => authBuilder.AddPolicy($"{r}Policy", p => p.RequireRole($"{r}")));
         return appBuilder;
     }
     internal static WebApplicationBuilder RegisterDependencies(this WebApplicationBuilder appBuilder, IConfigurationRoot configRoot)

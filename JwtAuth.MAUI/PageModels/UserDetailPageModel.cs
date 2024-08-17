@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.MAUI.Pages;
 
@@ -7,29 +7,26 @@ namespace JwtAuth.MAUI.PageModels;
 public partial class UserDetailPageModel : PageModelBase<GetUserDTO>
 {
     [RelayCommand]
-    private async Task ChangeUserPasswordAsync()
+    private static async Task ChangeUserPasswordAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() {  }));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() { }));
         return;
     }
 
     [RelayCommand]
-    private async Task ChangeUserRolesAsync()
+    private static async Task ChangeUserRolesAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserRolesPage(new ChangeUserRolesDTO() {  }));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserRolesPage(new ChangeUserRolesDTO() { }));
         return;
     }
 
     [RelayCommand]
-    private async Task UpdateUserProfileAsync()
+    private static async Task UpdateUserProfileAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new UpdateUserProfilePage(new UpdateUserProfileDTO() {  }));
+        await Shell.Current.Navigation.PushModalAsync(new UpdateUserProfilePage(new UpdateUserProfileDTO() { }));
         return;
     }
 
     [RelayCommand]
-    private async Task CloseAsync()
-    {
-        await base.CloseModalWindowAsync();
-    }
+    private async Task CloseAsync() => await base.CloseModalWindowAsync();
 }

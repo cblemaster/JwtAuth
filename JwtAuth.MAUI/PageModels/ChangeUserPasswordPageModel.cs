@@ -29,8 +29,5 @@ public partial class ChangeUserPasswordPageModel : PageModelBase<ChangeUserPassw
     }
 
     [RelayCommand]
-    private async Task CancelAsync()
-    {
-        await base.CloseModalWindowAsync();
-    }
+    private async Task CancelAsync() => await base.CloseModalWindowAsync();
 }

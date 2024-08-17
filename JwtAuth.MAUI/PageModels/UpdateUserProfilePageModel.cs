@@ -29,8 +29,5 @@ public partial class UpdateUserProfilePageModel : PageModelBase<UpdateUserProfil
     }
 
     [RelayCommand]
-    private async Task CancelAsync()
-    {
-        await base.CloseModalWindowAsync();
-    }
+    private async Task CancelAsync() => await base.CloseModalWindowAsync();
 }

@@ -1,4 +1,3 @@
-using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.MAUI.PageModels;
 
 namespace JwtAuth.MAUI.Pages;

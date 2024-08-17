@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
+             xmlns:user="clr-namespace:JwtAuth.MAUI.UserData"
              x:Class="JwtAuth.MAUI.Pages.UserDetailPage"
              x:DataType="{x:Type pagemodels:UserDetailPageModel}"
              Title="User Detail">
@@ -15,39 +16,45 @@
         <VerticalStackLayout Grid.Row="1" Style="{StaticResource NestedVslStyle}">
             <Label Text="Account" Style="{StaticResource BigLabelStyle}" />
             <HorizontalStackLayout Style="{StaticResource NestedHslStyle}">
-                <Label Text="{Binding DetailUser.Username, Mode=OneWay}"
+                <Label Text="{Binding Source={x:Static user:CurrentUser.Username}, Mode=OneWay}"
                        Style="{StaticResource MediumLabelStyle}" />
                 <Button Command="{Binding ChangeUserPasswordCommand, Mode=OneWay}"
                         Text="Change password" />
             </HorizontalStackLayout>
-            <Label Text="{Binding DetailUser.UserId, Mode=OneWay, StringFormat='User Id: {0}'}" />
-            <Label Text="{Binding DetailUser.CreateDate, Mode=OneWay, StringFormat='Account holder since {0:d}'}" />
-            <Label Text="{Binding DetailUser.UpdateDate, Mode=OneWay, StringFormat='Account last updated {0:d}'}"
-                   Margin="0,0,0,15" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.UserId}, Mode=OneWay, StringFormat='User Id: {0}'}" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.CreateDate}, Mode=OneWay, StringFormat='Account holder since {0:d}'}" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.UpdateDate}, Mode=OneWay, StringFormat='Account last updated {0:d}'}"
+                   Margin="0,0,0,15">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Static user:CurrentUser.UpdateDate}, Mode=OneWay}" Value="{x:Type Null}">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
             <HorizontalStackLayout Style="{StaticResource NestedHslStyle}">
                 <Label Text="Roles" />
                 <Button Command="{Binding ChangeUserRolesCommand, Mode=OneWay}"
                         Text="Change roles" />
             </HorizontalStackLayout>
-            <Label Text="{Binding DetailUser.Roles, Mode=OneWay}" Margin="0,0,0,15" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.Roles}, Mode=OneWay}" Margin="0,0,0,15" />
             <HorizontalStackLayout Style="{StaticResource NestedHslStyle}">
                 <Label Text="Token" Margin="0,0,20,0" />
                 <Label Text="Hide/Show" />
                 <Switch x:Name="HideShowToken" />
             </HorizontalStackLayout>
-            <Label Text="{Binding DetailUser.Token, Mode=OneWay}" IsVisible="{Binding Source={x:Reference HideShowToken}, Path=IsToggled}"
+            <Label Text="{Binding Source={x:Static user:CurrentUser.Token}, Mode=OneWay}" IsVisible="{Binding Source={x:Reference HideShowToken}, Path=IsToggled}"
                    LineBreakMode="CharacterWrap" MaxLines="10" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Column="1" Grid.Row="1"
                              Style="{StaticResource NestedVslStyle}">
             <Label Text="Profile" Style="{StaticResource BigLabelStyle}" />
             <HorizontalStackLayout Style="{StaticResource NestedHslStyle}">
-                <Label Text="{Binding DetailUser.FirstName, Mode=OneWay, StringFormat='First name: {0}'}" />
+                <Label Text="{Binding Source={x:Static user:CurrentUser.FirstName}, Mode=OneWay, StringFormat='First name: {0}'}" />
                 <Button Command="{Binding UpdateUserProfileCommand, Mode=OneWay}" Text="Update profile" />
             </HorizontalStackLayout>
-            <Label Text="{Binding DetailUser.LastName, Mode=OneWay, StringFormat='Last name: {0}'}" />
-            <Label Text="{Binding DetailUser.Email, Mode=OneWay, StringFormat='Email: {0}'}" />
-            <Label Text="{Binding DetailUser.Phone, Mode=OneWay, StringFormat='Phone: {0}'}" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.LastName}, Mode=OneWay, StringFormat='Last name: {0}'}" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.Email}, Mode=OneWay, StringFormat='Email: {0}'}" />
+            <Label Text="{Binding Source={x:Static user:CurrentUser.Phone}, Mode=OneWay, StringFormat='Phone: {0}'}" />
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

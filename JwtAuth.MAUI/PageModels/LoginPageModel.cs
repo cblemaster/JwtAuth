@@ -34,7 +34,7 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
             else
             {
                 CurrentUser.SetLogin(dto);
-                await Shell.Current.Navigation.PushModalAsync(new UserDetailPage(dto));
+                await Shell.Current.Navigation.PushModalAsync(new UserDetailPage());
                 return;
             }
         }

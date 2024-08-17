@@ -5,7 +5,7 @@ namespace JwtAuth.MAUI.Pages;
 
 public partial class UserDetailPage
 {
-    public UserDetailPage(GetUserDTO dto)
+    public UserDetailPage()
     {
         InitializeComponent();
 
@@ -15,7 +15,6 @@ public partial class UserDetailPage
             UserDetailPageModel pageModel = services.GetService<UserDetailPageModel>();
             if (pageModel is not null)
             {
-                pageModel.DetailUser = dto;
                 BindingContext = pageModel;
             }
         }

@@ -31,10 +31,11 @@
             </HorizontalStackLayout>
             <Label Text="{Binding DetailUser.Roles, Mode=OneWay}" Margin="0,0,0,15" />
             <HorizontalStackLayout Style="{StaticResource NestedHslStyle}">
-                <Label Text="Token" />
-                <Button Text="Show/Hide" />
+                <Label Text="Token" Margin="0,0,20,0" />
+                <Label Text="Hide/Show" />
+                <Switch x:Name="HideShowToken" />
             </HorizontalStackLayout>
-            <Label Text="{Binding DetailUser.Token, Mode=OneWay}"
+            <Label Text="{Binding DetailUser.Token, Mode=OneWay}" IsVisible="{Binding Source={x:Reference HideShowToken}, Path=IsToggled}"
                    LineBreakMode="CharacterWrap" MaxLines="10" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Column="1" Grid.Row="1"

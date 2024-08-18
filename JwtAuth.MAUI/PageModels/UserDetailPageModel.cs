@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using JwtAuth.Core.DataTransferObjects;
 using JwtAuth.MAUI.Pages;
+using JwtAuth.MAUI.UserData;
 
 namespace JwtAuth.MAUI.PageModels;
 
@@ -9,7 +10,7 @@ public partial class UserDetailPageModel : PageModelBase<GetUserDTO>
     [RelayCommand]
     private static async Task ChangeUserPasswordAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() { }));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserPasswordPage(new ChangeUserPasswordDTO() { UserId = CurrentUser.UserId }));
         return;
     }
 

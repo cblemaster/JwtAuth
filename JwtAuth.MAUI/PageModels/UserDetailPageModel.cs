@@ -17,7 +17,7 @@ public partial class UserDetailPageModel : PageModelBase<GetUserDTO>
     [RelayCommand]
     private static async Task ChangeUserRolesAsync()
     {
-        await Shell.Current.Navigation.PushModalAsync(new ChangeUserRolesPage(new ChangeUserRolesDTO() { }));
+        await Shell.Current.Navigation.PushModalAsync(new ChangeUserRolesPage(new ChangeUserRolesDTO() { UserId = CurrentUser.UserId, Username = CurrentUser.Username, Roles = CurrentUser.Roles }));
         return;
     }
 

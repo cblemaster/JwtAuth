@@ -36,6 +36,8 @@ public partial class ChangeUserRolesPageModel : PageModelBase<ChangeUserRolesDTO
         {
             await base._dataClient.ChangeUserRolesAsync(ChangeRolesUser, ChangeRolesUser.UserId);
             await base.CloseModalWindowAsync();
+            await Shell.Current.DisplayAlert("Success!", "Your roles have been updated, you have been logged out, and you will be directed to the login page.\nLog in again to see your role changes.", "OK");
+            await Shell.Current.GoToAsync("///Login");
         }
         catch (Exception e) { await base.DisplayErrorAsync(e.Message); }
     }

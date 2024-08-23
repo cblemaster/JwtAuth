@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
              x:Class="JwtAuth.MAUI.Pages.ChangeUserRolesPage"
              x:DataType="{x:Type pagemodels:ChangeUserRolesPageModel}"
              Title="Change user roles">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand, Mode=OneWay}" />
+    </ContentPage.Behaviors>
     <VerticalStackLayout Style="{StaticResource ContainerVslStyle}">
         <Label Text="{Binding ChangeRolesUser.Username, Mode=OneTime, StringFormat='Change roles for user: {0}'}" />
-        <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=TwoWay}" SelectionMode="Multiple" Margin="10">
+        <CollectionView SelectedItems="{Binding SelectedRoles, Mode=TwoWay}" ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectionMode="Multiple" Margin="10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type x:String}">
-                    <Label Text="{Binding ., Mode=OneWay}" />
+                    <Label Text="{Binding .}" Style="{StaticResource SelectableLabelStyle}" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
@@ -21,6 +25,11 @@
                     <Label Text="No roles found!" />
                 </ContentView>
             </CollectionView.EmptyView>
+            <CollectionView.Behaviors>
+                <toolkit:EventToCommandBehavior 
+                        EventName="Loaded" 
+                        Command="{Binding RolesLoadedCommand, Mode=OneWay}" />
+            </CollectionView.Behaviors>
         </CollectionView>
         <HorizontalStackLayout>
             <Button Command="{Binding ChangeUserRolesCommand, Mode=OneWay}" Text="Save" />

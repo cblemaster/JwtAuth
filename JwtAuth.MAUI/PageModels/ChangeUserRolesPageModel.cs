@@ -8,10 +8,6 @@ namespace JwtAuth.MAUI.PageModels;
 
 public partial class ChangeUserRolesPageModel : PageModelBase<ChangeUserRolesDTO>
 {
-    public ChangeUserRolesPageModel() =>
-        AllRoles = new(Task.Run(() => 
-            _dataClient.GetRolesAsync()).Result.Cast<string>());
-
     [ObservableProperty]
     private ChangeUserRolesDTO _changeRolesUser = null!;
 
@@ -19,7 +15,23 @@ public partial class ChangeUserRolesPageModel : PageModelBase<ChangeUserRolesDTO
     private ObservableCollection<string> _allRoles = null!;
 
     [ObservableProperty]
-    private ObservableCollection<object> _selectedRoles = new(Enumerable.Empty<object>());
+    private ObservableCollection<object> _selectedRoles = null!;
+
+    [RelayCommand]
+    private void PageAppearing()
+    {
+        AllRoles = new(Task.Run(() =>
+            _dataClient.GetRolesAsync()).Result.Cast<string>());
+    }
+
+    [RelayCommand]
+    private void RolesLoaded()
+    {
+        if (ChangeRolesUser.Roles is not null)
+        {
+            SelectedRoles = new(ChangeRolesUser.Roles.Split(","));
+        }
+    }
 
     [RelayCommand]
     private async Task ChangeUserRoles()

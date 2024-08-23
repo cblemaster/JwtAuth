@@ -15,9 +15,8 @@ public partial class ChangeUserRolesPage : ContentPage
             ChangeUserRolesPageModel pageModel = services.GetService<ChangeUserRolesPageModel>();
             if (pageModel is not null)
             {
-                BindingContext = pageModel;
-                pageModel.SelectedRoles = new(dto.Roles.Split(","));
                 pageModel.ChangeRolesUser = dto;
+                BindingContext = pageModel;
             }
         }
     }

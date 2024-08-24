@@ -47,9 +47,6 @@
  - Create date is meant to be set when a record is inserted, then never changed (TBD - how to enforce this in the db and/or app?)
  - Update date is meant to be set every time a record is updated  (TBD - how to enforce this in the db and/or app?)
 
-## UI conventions
- - TBD
-
 ## Project overview
 ### Core
 ### DataClient
@@ -58,12 +55,25 @@
 ### Web
 
 ## Instructions for running the application
- - TBD
+ - Clone or download the repo
+ - Run the script to create the database (\JwtAuth\Database\JwtAuth-Create-Db-Script.sql)
+ - Run the solution file with Visual Studio (\JwtAuth\JwtAuth.sln)
 
 ## Improvement opportunities
  - Keep project .NET versions up to date
  - Keep nuget package versions up to date
  - Move data validation in api endpoints (web project) into endpoint filters
- - Apply ASP.NET Core best practices from Microsoft in web project: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-8.0
- - New UI projects
+ - Add authorization to endpoints: change user password, change user roles, update user profile
  - Better validation for unique username, email, and phone
+ - MAUI improvements:
+	- Role collectionviews' selected items styling is not working
+	- Clear register and login pages when revisited
+	- User details page, fix show/hide token switch styling and vertical alignment
+	- Fix nav bar styling
+	- User details page does not display update date correctly when value is null
+	- User details page show comma separated roles with a space after each comma
+	- Show/hide for password entries
+	- Button enabling/disabling for all buttons
+	- Tab order and focus
+ - New UI projects
+ - Apply ASP.NET Core best practices from Microsoft in web project: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-8.0

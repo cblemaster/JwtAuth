@@ -26,7 +26,7 @@ public partial class LoginPageModel : PageModelBase<LoginUserDTO>
 
         try
         {
-            GetUserDTO dto = (await base._dataClient.LoginAsync(LoginUser));
+            GetUserDTO dto = (await base._dataClient.LoginAsync(LoginUser))!;
             if (dto is null)
             {
                 await base.DisplayErrorAsync("Error logging in.");

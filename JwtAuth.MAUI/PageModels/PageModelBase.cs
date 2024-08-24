@@ -14,8 +14,8 @@ public abstract class PageModelBase<T> : ObservableObject
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
         {
-            IValidator<T> validator = services.GetService<IValidator<T>>();
-            IDataClient dataClient = services.GetService<IDataClient>();
+            IValidator<T> validator = services.GetService<IValidator<T>>()!;
+            IDataClient dataClient = services.GetService<IDataClient>()!;
 
             if (validator is not null) { _validator = validator; }
             if (dataClient is not null) { _dataClient = dataClient; }

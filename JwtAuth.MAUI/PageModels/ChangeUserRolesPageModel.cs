@@ -18,11 +18,9 @@ public partial class ChangeUserRolesPageModel : PageModelBase<ChangeUserRolesDTO
     private ObservableCollection<object> _selectedRoles = null!;
 
     [RelayCommand]
-    private void PageAppearing()
-    {
+    private void PageAppearing() =>
         AllRoles = new(Task.Run(() =>
             _dataClient.GetRolesAsync()).Result.Cast<string>());
-    }
 
     [RelayCommand]
     private void RolesLoaded()
@@ -34,7 +32,7 @@ public partial class ChangeUserRolesPageModel : PageModelBase<ChangeUserRolesDTO
     }
 
     [RelayCommand]
-    private async Task ChangeUserRoles()
+    private async Task ChangeUserRolesAsync()
     {
         ChangeRolesUser.Roles = string.Join(",", SelectedRoles);
         ValidationResult vr = base._validator.Validate(ChangeRolesUser);

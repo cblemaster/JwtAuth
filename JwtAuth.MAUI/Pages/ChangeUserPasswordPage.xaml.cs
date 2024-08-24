@@ -12,7 +12,7 @@ public partial class ChangeUserPasswordPage : ContentPage
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
         {
-            ChangeUserPasswordPageModel pageModel = services.GetService<ChangeUserPasswordPageModel>();
+            ChangeUserPasswordPageModel pageModel = services.GetService<ChangeUserPasswordPageModel>()!;
             if (pageModel is not null)
             {
                 pageModel.ChangePasswordUser = dto;

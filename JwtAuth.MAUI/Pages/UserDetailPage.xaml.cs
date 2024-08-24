@@ -11,7 +11,7 @@ public partial class UserDetailPage
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
         {
-            UserDetailPageModel pageModel = services.GetService<UserDetailPageModel>();
+            UserDetailPageModel pageModel = services.GetService<UserDetailPageModel>()!;
             if (pageModel is not null)
             {
                 BindingContext = pageModel;

@@ -12,7 +12,7 @@ public partial class UpdateUserProfilePage : ContentPage
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
         {
-            UpdateUserProfilePageModel pageModel = services.GetService<UpdateUserProfilePageModel>();
+            UpdateUserProfilePageModel pageModel = services.GetService<UpdateUserProfilePageModel>()!;
             if (pageModel is not null)
             {
                 pageModel.UpdateProfileUser = dto;

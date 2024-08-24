@@ -12,7 +12,7 @@ public partial class ChangeUserRolesPage : ContentPage
         IServiceProvider? services = Application.Current?.MainPage?.Handler?.MauiContext?.Services;
         if (services is not null)
         {
-            ChangeUserRolesPageModel pageModel = services.GetService<ChangeUserRolesPageModel>();
+            ChangeUserRolesPageModel pageModel = services.GetService<ChangeUserRolesPageModel>()!;
             if (pageModel is not null)
             {
                 pageModel.ChangeRolesUser = dto;

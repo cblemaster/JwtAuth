@@ -5,7 +5,7 @@
              xmlns:user="clr-namespace:JwtAuth.MAUI.UserData"
              x:Class="JwtAuth.MAUI.Pages.UserDetailPage"
              x:DataType="{x:Type pagemodels:UserDetailPageModel}"
-             Title="User Detail">
+             Title="User detail">
     <Grid ColumnDefinitions="1*,1*" RowDefinitions="20,*"
           Style="{StaticResource ContainerGridStyle}">
         <HorizontalStackLayout Grid.ColumnSpan="2"

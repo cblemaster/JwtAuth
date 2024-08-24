@@ -4,7 +4,7 @@
              xmlns:pagemodels="clr-namespace:JwtAuth.MAUI.PageModels"
              x:Class="JwtAuth.MAUI.Pages.UpdateUserProfilePage"
              x:DataType="{x:Type pagemodels:UpdateUserProfilePageModel}"
-             Title="Update User Profile">
+             Title="Update user profile">
     <VerticalStackLayout Style="{StaticResource ContainerVslStyle}">
         <Label Text="{Binding UpdateProfileUser.Username, Mode=OneTime,
             StringFormat='Update profile for user: {0}'}" />

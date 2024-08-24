@@ -19,8 +19,10 @@ namespace JwtAuth.MAUI
                 .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Aptos-Narrow.ttf", "AptosNarrow");
+                    fonts.AddFont("Aptos-Narrow-Bold.ttf", "AptosNarrowBold");
+                    fonts.AddFont("Aptos-Narrow-Bold-Italic.ttf", "AptosNarrowBoldItalic");
+                    fonts.AddFont("Aptos-Narrow-Italic.ttf", "AptosNarrowItalic");
                 })
                 .Services.AddSingleton<AppShell>()
                     .AddTransient<RegisterPageModel>()

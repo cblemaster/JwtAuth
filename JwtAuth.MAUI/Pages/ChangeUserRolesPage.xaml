@@ -7,11 +7,15 @@
              x:DataType="{x:Type pagemodels:ChangeUserRolesPageModel}"
              Title="Change user roles">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand, Mode=OneWay}" />
+        <toolkit:EventToCommandBehavior EventName="Appearing"
+            Command="{Binding PageAppearingCommand, Mode=OneWay}" />
     </ContentPage.Behaviors>
     <VerticalStackLayout Style="{StaticResource ContainerVslStyle}">
-        <Label Text="{Binding ChangeRolesUser.Username, Mode=OneTime, StringFormat='Change roles for user: {0}'}" />
-        <CollectionView SelectedItems="{Binding SelectedRoles, Mode=TwoWay}" ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectionMode="Multiple" Margin="10">
+        <Label Text="{Binding ChangeRolesUser.Username, Mode=OneTime,
+            StringFormat='Change roles for user: {0}'}" />
+        <CollectionView SelectedItems="{Binding SelectedRoles, Mode=TwoWay}"
+                        ItemsSource="{Binding AllRoles, Mode=OneWay}"
+                        SelectionMode="Multiple">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
             </CollectionView.ItemsLayout>
@@ -26,13 +30,14 @@
                 </ContentView>
             </CollectionView.EmptyView>
             <CollectionView.Behaviors>
-                <toolkit:EventToCommandBehavior 
-                        EventName="Loaded" 
-                        Command="{Binding RolesLoadedCommand, Mode=OneWay}" />
+                <toolkit:EventToCommandBehavior
+                    EventName="Loaded" Command="{Binding RolesLoadedCommand,
+                    Mode=OneWay}" />
             </CollectionView.Behaviors>
         </CollectionView>
         <HorizontalStackLayout>
-            <Button Command="{Binding ChangeUserRolesCommand, Mode=OneWay}" Text="Save" />
+            <Button Command="{Binding ChangeUserRolesCommand, Mode=OneWay}"
+                    Text="Save" />
             <Button Command="{Binding CancelCommand, Mode=OneWay}" Text="Cancel" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

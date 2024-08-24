@@ -12,7 +12,9 @@
         <Label Text="Password:" />
         <Entry Text="{Binding LoginUser.Password, Mode=OneWayToSource}"
                IsPassword="True" Placeholder="password" MaxLength="50" />
-        <Button Command="{Binding LoginCommand, Mode=OneWay}"
-                Style="{StaticResource BigButtonStyle}" Text="Login" />
+        <HorizontalStackLayout Style="{StaticResource NestedHslHorizCenterStyle}">
+            <Button Command="{Binding LoginCommand, Mode=OneWay}"
+                    Style="{StaticResource BigButtonStyle}" Text="Login" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -5,35 +5,37 @@
              x:Class="JwtAuth.MAUI.Pages.RegisterPage"
              x:DataType="{x:Type pagemodels:RegisterPageModel}"
              Title="Register">
-    <Grid ColumnDefinitions="1*,1*,1*" RowDefinitions="15*,10*,10*" Style="{StaticResource ContainerGridStyle}">
-        <VerticalStackLayout Style="{StaticResource LabelEntryStackStyle}" Margin="10,0,10,10">
+    <Grid ColumnDefinitions="1*,1*,1*" RowDefinitions="15*,10*,10*"
+          Style="{StaticResource ContainerGridStyle}">
+        <VerticalStackLayout Style="{StaticResource LabelEntryStackWithMarginStyle}">
             <Label Text="Username:" />
             <Entry Text="{Binding RegisterUser.Username, Mode=OneWayToSource}"
-                Placeholder="username" MaxLength="50" />
+                   Placeholder="username" MaxLength="50" />
             <Label Text="Password:" />
             <Entry Text="{Binding RegisterUser.Password, Mode=OneWayToSource}"
-                IsPassword="True" Placeholder="password" MaxLength="50" />
+                   IsPassword="True" Placeholder="password" MaxLength="50" />
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Column="1" Style="{StaticResource LabelEntryStackStyle}" Margin="10,0,10,10">
+        <VerticalStackLayout Grid.Column="1" Style="{StaticResource LabelEntryStackWithMarginStyle}">
             <Label Text="First name:" />
             <Entry Text="{Binding RegisterUser.FirstName, Mode=OneWayToSource}"
-                Placeholder="first name" MaxLength="255" />
+                   Placeholder="first name" MaxLength="255" />
             <Label Text="Last name:" />
             <Entry Text="{Binding RegisterUser.LastName, Mode=OneWayToSource}"
-                Placeholder="last name" MaxLength="255" />
+                   Placeholder="last name" MaxLength="255" />
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Column="2" Style="{StaticResource LabelEntryStackStyle}" Margin="10,0,10,10">
+        <VerticalStackLayout Grid.Column="2" Style="{StaticResource LabelEntryStackWithMarginStyle}">
             <Label Text="Email:" />
             <Entry Text="{Binding RegisterUser.Email, Mode=OneWayToSource}"
-                Placeholder="email" MaxLength="255" />
+                   Placeholder="email" MaxLength="255" IsSpellCheckEnabled="False" />
             <Label Text="Phone:" />
             <Entry Text="{Binding RegisterUser.Phone, Mode=OneWayToSource}"
-                Placeholder="phone" MaxLength="10" />
+                   Placeholder="phone" MaxLength="10" />
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="3" Margin="10">
-            <Label Text="Roles:" />
-            <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}" SelectedItems="{Binding SelectedRoles, Mode=OneWay}"
-                SelectionMode="Multiple" Margin="10">
+            <Label Text="Roles:" Style="{StaticResource MediumLabelStyle}" />
+            <CollectionView ItemsSource="{Binding AllRoles, Mode=OneWay}"
+                            SelectedItems="{Binding SelectedRoles, Mode=OneWay}"
+                            SelectionMode="Multiple">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1" />
                 </CollectionView.ItemsLayout>
@@ -49,8 +51,10 @@
                 </CollectionView.EmptyView>
             </CollectionView>
         </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="3" HorizontalOptions="Center" Margin="10">
-            <Button Command="{Binding RegisterCommand, Mode=OneWay}" Style="{StaticResource BigButtonStyle}" Text="Register" />
-        </VerticalStackLayout>
+        <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="3"
+                               Style="{StaticResource NestedHslHorizCenterStyle}">
+            <Button Command="{Binding RegisterCommand, Mode=OneWay}"
+                    Style="{StaticResource BigButtonStyle}" Text="Register" />
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>
